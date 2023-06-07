@@ -16,3 +16,5 @@ export const singupFormFields = [
   ...singinFormFields,
   { fieldLabel: 'Repeat password', fieldName: 'repeatPass' },
 ];
+
+export const check = 'deploy'
