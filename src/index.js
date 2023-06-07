@@ -4,7 +4,7 @@ import errorPage from './templates/errorPage.tmpl'
 import button from './partials/button';
 import link from './partials/link'
 import formField from './partials/formField';
-import { check, routes, singinFormFields, singupFormFields } from './consts';
+import { routes, singinFormFields, singupFormFields } from './consts';
 
 Handlebars.registerPartial('button', button);
 Handlebars.registerPartial('link', link);
@@ -20,7 +20,7 @@ switch (window.location.pathname) {
   case routes.signin: {
     const result = formTemplate({
       formTitle: 'SIGN IN',
-      btnLabel: check,
+      btnLabel: 'sing in',
       fields: singinFormFields,
       link: 'signup',
       linkText: 'Create account',
