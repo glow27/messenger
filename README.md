@@ -4,10 +4,18 @@ messenger "Chach"
 
 ## Set up
 
-- `npm install`
-- `npm start` 
+1. `npm install`
+2. `npm start` 
 
-## **pages**
+## pages
 
-ui prototypes in ui folder
+/signin
+
+/signup
+
+/chat
+
+/profile
+
+*ui prototypes in ui folder*
 
