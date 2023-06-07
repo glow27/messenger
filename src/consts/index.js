@@ -1,6 +1,8 @@
 export const routes = {
   signin: '/signin',
-  signup: '/signup'
+  signup: '/signup',
+  profile: '/profile',
+  chat: '/chat'
 }
 
 export const singinFormFields = [

@@ -1,56 +1,32 @@
-import Handlebars from 'handlebars';
-import form from './templates/form.tmpl';
-import errorPage from './templates/errorPage.tmpl'
-import button from './partials/button';
-import link from './partials/link'
-import formField from './partials/formField';
-import { routes, singinFormFields, singupFormFields } from './consts';
-
-Handlebars.registerPartial('button', button);
-Handlebars.registerPartial('link', link);
-Handlebars.registerPartial('formField', formField);
-
-const formTemplate = Handlebars.compile(form);
-const errorTemplate = Handlebars.compile(errorPage);
+import { notFoundPage } from './pages/errors';
+import { signinForm } from './pages/signin';
+import { signupForm } from './pages/signup';
+import { chatPage } from './pages/chat';
+import { routes } from './consts';
 
 const body = document.querySelector('body');
 
 switch (window.location.pathname) {
   case '/':
   case routes.signin: {
-    const result = formTemplate({
-      formTitle: 'SIGN IN',
-      btnLabel: 'sing in',
-      fields: singinFormFields,
-      link: 'signup',
-      linkText: 'Create account',
-    });
+    body.innerHTML = signinForm;
 
-    body.innerHTML = result;
+    break;
+  }
+  case routes.chat: {
+    body.innerHTML = chatPage;
 
     break;
   }
   case routes.signup: {
-    const result = formTemplate({
-      formTitle: 'SIGN UP',
-      btnLabel: 'sing up',
-      fields: singupFormFields,
-      link: 'signin',
-      linkText: 'Back to sign in',
-    });
-
-    body.innerHTML = result;
+    body.innerHTML = signupForm;
 
     break;
   }
+  case routes.profile: {
+    body.innerHTML = notFoundPage;
+  }
   default: {
-    const result = errorTemplate({
-      code: '404',
-      messege: 'not found',
-      link: '/chat',
-      linkText: 'Back',
-    });
-
-    body.innerHTML = result;
+    body.innerHTML = notFoundPage;
   }
 }
