@@ -1,0 +1,57 @@
+@import 'variables.scss';
+
+html, body {
+  height: 100%;
+}
+
+a {
+  text-decoration: none;
+  color: $dark-color;
+}
+
+.centeredContainer {
+  height: 100%;
+  width: 100%;
+  
+  @include centeredFlex;
+}
+
+.form {
+  width: 400px;
+  
+  @include border;
+
+  box-shadow: 10px 10px 10px  $base-color;
+  padding: 8px 32px 32px 32px;
+
+  @include centeredFlex;
+  
+  flex-direction: column;
+}
+
+.form label {
+  align-self: start;
+  margin: 4px;
+}
+
+.form button {
+  margin: 32px 0 16px 0;
+  width: 50%;
+}
+
+.formField {
+  width: 100%;
+  box-sizing: border-box;
+  margin-bottom: 24px;
+  
+  @include border;
+
+}
+
+.errorPageContainer {
+  @include centeredFlex;
+
+  text-align: center;
+  
+  flex-direction: column;
+}
