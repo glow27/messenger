@@ -1,5 +1,9 @@
 import { formTemplate } from '../../utils/templator';
-import { singinFormFields } from '../../consts';
+
+const singinFormFields = [
+  { fieldLabel: 'Login', fieldName: 'login' },
+  { fieldLabel: 'Password', fieldName: 'password' },
+];
 
 export const signinForm = formTemplate({
   formTitle: 'SIGN IN',

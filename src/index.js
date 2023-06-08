@@ -2,7 +2,13 @@ import { notFoundPage } from './pages/errors';
 import { signinForm } from './pages/signin';
 import { signupForm } from './pages/signup';
 import { chatPage } from './pages/chat';
-import { routes } from './consts';
+
+const routes = {
+  signin: '/signin',
+  signup: '/signup',
+  profile: '/profile',
+  chat: '/chat'
+}
 
 const body = document.querySelector('body');
 

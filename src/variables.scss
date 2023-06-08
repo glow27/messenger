@@ -1,3 +1,11 @@
+@font-face {
+  font-family: 'acme', 'sans-serif';
+  src: url('../static/acme-regular-webfont.woff2') format('woff2'),
+       url('../static/acme-regular-webfont.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
 $base-color: #bd80cc;
 $dark-color: #5c1e6b;
 $border-dark: rgba($base-color, 0.88);
