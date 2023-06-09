@@ -1,7 +1,8 @@
 @font-face {
   font-family: 'acme';
   src: url('../static/acme-regular-webfont.woff2') format('woff2'),
-       url('../static/acme-regular-webfont.woff') format('woff');
+       url('../static/acme-regular-webfont.woff') format('woff'),
+       url('../static/Acme-Regular.ttf')  format('truetype');
   font-weight: normal;
   font-style: normal;
 }
@@ -14,6 +15,12 @@ $border-dark: rgba($base-color, 0.88);
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+@mixin field {
+  width: 100%;
+  box-sizing: border-box;
+  margin-bottom: 24px;
 }
 
 @mixin border {

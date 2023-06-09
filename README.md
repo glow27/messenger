@@ -19,5 +19,7 @@ messenger "Chach"
 
 /profile
 
+*going to any other page will leed you to an error page, for example: /asfdasdfasdw*
+
 *ui prototypes in ui folder*
 

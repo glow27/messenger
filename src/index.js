@@ -1,4 +1,5 @@
 import { notFoundPage } from './pages/errors';
+import { profileForm } from './pages/profile';
 import { signinForm } from './pages/signin';
 import { signupForm } from './pages/signup';
 import { chatPage } from './pages/chat';
@@ -30,7 +31,9 @@ switch (window.location.pathname) {
     break;
   }
   case routes.profile: {
-    body.innerHTML = notFoundPage;
+    body.innerHTML = profileForm;
+
+    break;
   }
   default: {
     body.innerHTML = notFoundPage;

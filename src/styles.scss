@@ -30,6 +30,10 @@ a {
   flex-direction: column;
 }
 
+.form.profile {
+  width: 40%;
+}
+
 .form label {
   align-self: start;
   margin: 4px;
@@ -41,12 +45,40 @@ a {
 }
 
 .formField {
-  width: 100%;
-  box-sizing: border-box;
-  margin-bottom: 24px;
+  @include field;
   
   @include border;
 
+}
+
+.profileField {
+  @include field;
+  
+  display: flex;
+  justify-content: space-between;
+
+}
+
+.avatarInput {
+  display: none;
+  
+}
+
+label.avatarLabel {
+  width: 100%;
+  padding: 32px 16px 48px 16px;
+  margin: 0;
+  align-self: unset;
+  display: flex;
+  justify-content: center;
+}
+
+.avatarImg {
+  border-radius: 50%;
+
+  &:hover {
+    cursor: pointer;
+  }
 }
 
 .errorPageContainer {
