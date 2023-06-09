@@ -1,15 +1,18 @@
+import { profileTemplate } from '../../components/templates/profile.tmpl';
+import { ProfileField } from '../../components/ProfileField';
+import { AvatarInput } from '../../components/AvatarInput';
 import { Button } from '../../components/Button';
-import { formTemplate } from '../../components/templates/form.tmpl';
+import { Link } from '../../components/Link';
+import { singupFormFields } from '../consts';
 
-const singinFormFields = [
-  { fieldLabel: 'Login', fieldName: 'login' },
-  { fieldLabel: 'Password', fieldName: 'password' },
+const profileFormFields = [
+  { fieldLabel: 'Nickname', fieldName: 'display' },
+  ...singupFormFields
 ];
 
-export const signinForm = formTemplate({
-  formTitle: 'SIGN IN',
-  button: Button({ label: 'sing in' }),
-  fields: singinFormFields,
-  link: 'signup',
-  linkText: 'Create account',
+export const profileForm = profileTemplate({
+  avatar: AvatarInput(),
+  button: Button({ label: 'SAVE' }),
+  fields: profileFormFields.map((el) => ProfileField(el)),
+  link: Link({ href: 'chat', linkText: 'Back to chat' }),
 });
