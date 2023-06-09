@@ -1,4 +1,5 @@
-import { formTemplate } from '../../utils/templator';
+import { Button } from '../../components/Button';
+import { formTemplate } from '../../components/templates/form.tmpl';
 
 const singinFormFields = [
   { fieldLabel: 'Login', fieldName: 'login' },
@@ -7,7 +8,7 @@ const singinFormFields = [
 
 export const signinForm = formTemplate({
   formTitle: 'SIGN IN',
-  btnLabel: 'sing in',
+  button: Button({ label: 'sing in' }),
   fields: singinFormFields,
   link: 'signup',
   linkText: 'Create account',
