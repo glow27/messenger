@@ -10,7 +10,7 @@ const singinFormFields = [
 
 export const signinForm = formTemplate({
   formTitle: 'SIGN IN',
-  button: Button({ label: 'sing in' }),
+  button: Button({ label: 'sing in', type: 'submit' }),
   fields: singinFormFields.map(el => FormField(el)),
   link: Link({ href: 'signup', linkText: 'Create account' }),
 });

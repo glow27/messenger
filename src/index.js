@@ -12,30 +12,31 @@ const routes = {
 }
 
 const body = document.querySelector('body');
+const main = body.querySelector('main')
 
 switch (window.location.pathname) {
   case '/':
   case routes.signin: {
-    body.innerHTML = signinForm;
+    main.innerHTML = signinForm;
 
     break;
   }
   case routes.chat: {
-    body.innerHTML = chatPage;
+    main.innerHTML = chatPage;
 
     break;
   }
   case routes.signup: {
-    body.innerHTML = signupForm;
+    main.innerHTML = signupForm;
 
     break;
   }
   case routes.profile: {
-    body.innerHTML = profileForm;
+    main.innerHTML = profileForm;
 
     break;
   }
   default: {
-    body.innerHTML = notFoundPage;
+    main.innerHTML = notFoundPage;
   }
 }

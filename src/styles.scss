@@ -1,6 +1,6 @@
 @import 'variables.scss';
 
-html, body {
+html, body, main {
   height: 100%;
 }
 
@@ -61,7 +61,6 @@ a {
 
 .avatarInput {
   display: none;
-  
 }
 
 label.avatarLabel {

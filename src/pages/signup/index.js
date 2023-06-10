@@ -6,7 +6,7 @@ import { singupFormFields } from '../consts';
 
 export const signupForm = formTemplate({
   formTitle: 'SIGN UP',
-  button: Button({ label: 'sing up' }),
+  button: Button({ label: 'sing up', type: 'submit' }),
   fields: singupFormFields.map((el) => FormField(el)),
   link: Link({ href: 'signin', linkText: 'Back to sign in' }),
 });
