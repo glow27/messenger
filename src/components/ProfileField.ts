@@ -1,6 +1,11 @@
 import Handlebars from 'handlebars';
 
-export const ProfileField = ({ fieldName, fieldLabel }) =>
+interface ProfileFieldProps {
+  fieldName: string;
+  fieldLabel: string;
+}
+
+export const ProfileField = ({ fieldName, fieldLabel }: ProfileFieldProps) =>
   Handlebars.compile(`
   <div class="profileField">
     <label for={{ fieldName }} >{{ fieldLabel }}</label>
