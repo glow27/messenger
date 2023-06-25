@@ -1,7 +1,7 @@
 import { CommonProps } from '../types/common';
 import { Block } from '../utils/block';
 
-interface FormFieldProps extends CommonProps {
+export interface FormFieldProps extends CommonProps {
   fieldName: string;
   fieldLabel: string;
 }

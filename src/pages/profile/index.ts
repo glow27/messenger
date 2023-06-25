@@ -1,4 +1,4 @@
-import { settingsIdandInputSelector, settingsWithId } from '../consts';
+import { SubmitFormValues, settingsIdandFormSelector, settingsIdandInputSelector, settingsWithId } from '../consts';
 import { ProfileField } from '../../components/ProfileField';
 import { AvatarInput } from '../../components/AvatarInput';
 import { Profile } from '../../components/Profile';
@@ -66,6 +66,10 @@ const link = new Link({
 
 export const profileForm = new Profile({
   fields: profileFormFields.map((el) => new ProfileField(el)),
+  events: {
+    submit: SubmitFormValues,
+  },
+  settings: settingsIdandFormSelector,
   avatar,
   button,
   link,

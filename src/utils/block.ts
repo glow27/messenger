@@ -249,6 +249,14 @@ export class Block<P = UnknownObject> {
     });
   }
 
+  private _createDocumentElement(tagName: string) {
+    const element = document.createElement(tagName);
+
+    if (this._id) element.setAttribute('data-id', this._id);
+
+    return element;
+  }
+
   private _makePropsProxy(props: P, current: this): P {
     const proxyProps = new Proxy(props as UnknownObject, {
       get(target: UnknownObject, prop) {
@@ -280,14 +288,6 @@ export class Block<P = UnknownObject> {
     });
 
     return proxyProps as P;
-  }
-
-  private _createDocumentElement(tagName: string) {
-    const element = document.createElement(tagName);
-
-    if (this._id) element.setAttribute('data-id', this._id);
-
-    return element;
   }
 
   show() {

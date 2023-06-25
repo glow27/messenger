@@ -1,4 +1,4 @@
-import { settingsIdandInputSelector, settingsWithId } from '../consts';
+import { SubmitFormValues, settingsIdandFormSelector, settingsIdandInputSelector, settingsWithId } from '../consts';
 import { FormField } from '../../components/FormField';
 import { Button } from '../../components/Button';
 import { Link } from '../../components/Link';
@@ -28,10 +28,8 @@ const singupFormFields = [
 
 const button = new Button({
   label: 'sign up',
-  events: {
-    click: () => console.log('ck'),
-  },
   settings: settingsWithId,
+  type: 'submit'
 });
 
 const link = new Link({
@@ -41,6 +39,10 @@ const link = new Link({
 
 export const signupForm = new Form({
   fields: singupFormFields.map((el) => new FormField(el)),
+  events: {
+    submit: SubmitFormValues,
+  },
+  settings: settingsIdandFormSelector,
   formTitle: 'SIGN UP',
   button,
   link,

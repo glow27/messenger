@@ -7,10 +7,8 @@ export interface Settings {
   selectorForEvent?: string;
 }
 
-type Events = 'click' | 'blur' | 'focus'
-
 export interface EventsProps {
-  [key: Events[number]]: (e: Event) => void
+  [key: string]: (e: Event) => void
 }
 
 export interface CommonProps {

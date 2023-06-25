@@ -1,10 +1,10 @@
-import { settingsIdandInputSelector, settingsWithId } from '../consts';
-import { FormField } from '../../components/FormField';
+import { SubmitFormValues, settingsIdandFormSelector, settingsIdandInputSelector, settingsWithId } from '../consts';
+import { FormField, FormFieldProps } from '../../components/FormField';
 import { Button } from '../../components/Button';
 import { Link } from '../../components/Link';
 import { Form } from '../../components/Form';
 
-const singinFormFields = [
+const singinFormFields: FormFieldProps[] = [
   {
     fieldLabel: 'Login',
     fieldName: 'login',
@@ -25,10 +25,8 @@ const singinFormFields = [
 
 const button = new Button({
   label: 'sign in',
-  events: {
-    click: () => console.log('fuck'),
-  },
   settings: settingsWithId,
+  type: 'submit'
 });
 
 const link = new Link({
@@ -38,6 +36,10 @@ const link = new Link({
 
 export const signinForm = new Form({
   fields: singinFormFields.map((el) => new FormField(el)),
+  events: {
+    submit: SubmitFormValues,
+  },
+  settings: settingsIdandFormSelector,
   formTitle: 'SIGN IN',
   button,
   link,
