@@ -1,28 +1,37 @@
 const METHODS = {
-  GET: "GET",
-  POST: "POST",
-  PUT: "PUT",
-  PATCH: "PATCH",
-  DELETE: "DELETE",
+  GET: 'GET',
+  POST: 'POST',
+  PUT: 'PUT',
+  PATCH: 'PATCH',
+  DELETE: 'DELETE',
 };
 
-function queryStringify(data) {
+type MethodsType = keyof typeof METHODS
+
+interface RequestOptions {
+  timeout?: number,
+  data?: Record<string, unknown>,
+  method: MethodsType[number]
+  headers?: Record<string, string>
+}
+
+function queryStringify(data: Record<string, unknown>) {
   const keys = Object.keys(data);
 
   if (!keys.length) return;
 
-  let params = "?";
+  let params = '?';
 
   for (let i = 0; i < keys.length; i++) {
-    params += `${keys[i]}=${data[keys[i]].toString()}`;
-    if (i < keys.length - 1) params += "&";
+    params += `${keys[i]}=${data[keys[i]]}`;
+    if (i < keys.length - 1) params += '&';
   }
 
   return params;
 }
 
-class HTTPTransport {
-  get = (url: string, options = {}) => {
+export class HTTPTransport {
+  get = (url: string, options: RequestOptions) => {
     return this.request(
       url,
       { ...options, method: METHODS.GET },
@@ -30,7 +39,7 @@ class HTTPTransport {
     );
   };
 
-  post = (url: string, options = {}) => {
+  post = (url: string, options: RequestOptions) => {
     return this.request(
       url,
       { ...options, method: METHODS.POST },
@@ -38,7 +47,7 @@ class HTTPTransport {
     );
   };
 
-  put = (url: string, options = {}) => {
+  put = (url: string, options: RequestOptions) => {
     return this.request(
       url,
       { ...options, method: METHODS.PUT },
@@ -46,7 +55,7 @@ class HTTPTransport {
     );
   };
 
-  delete = (url: string, options = {}) => {
+  delete = (url: string, options: RequestOptions) => {
     return this.request(
       url,
       { ...options, method: METHODS.DELETE },
@@ -54,7 +63,7 @@ class HTTPTransport {
     );
   };
 
-  request = (url: string, options, timeout = 5000) => {
+  request = (url: string, options: RequestOptions, timeout = 5000) => {
     const { method, data, headers } = options;
 
     if (method === METHODS.GET && data) {
@@ -66,12 +75,12 @@ class HTTPTransport {
       xhr.open(method, url);
 
       if (headers) {
-        for (let key in headers) {
+        for (const key in headers) {
           xhr.setRequestHeader(key.toString(), headers[key].toString());
         }
       }
 
-      xhr.setRequestHeader("Content-Type", "application/json; charset=utf-8");
+      xhr.setRequestHeader('Content-Type', 'application/json; charset=utf-8');
 
       xhr.onload = function () {
         resolve(xhr);

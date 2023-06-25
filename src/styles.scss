@@ -54,12 +54,14 @@ a {
 
 .formField {
   width: 100%;
+
   @include field;
   @include border;
 }
 
 .profileField {
   width: 60%;
+
   @include field;
   @include border;
 }
@@ -75,6 +77,7 @@ a {
 label.avatarLabel {
   width: fit-content;
   border-radius: 50%;
+  
   @include centeredFlex;
 }
 

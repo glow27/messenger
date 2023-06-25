@@ -1,6 +1,6 @@
 export const settingsWithId = { withId: true };
 
 export const settingsIdandInputSelector = {
-  selectorForEvent: "input",
+  selectorForEvent: 'input',
   withId: true,
 };

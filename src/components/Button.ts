@@ -1,24 +1,25 @@
-import { Block } from "../utils/block";
+import { CommonProps } from '../types/common';
+import { Block } from '../utils/block';
 
-interface ButtonProps {
+interface ButtonProps extends CommonProps {
   label: string;
-  type?: "button" | "submit" | "reste";
+  type?: 'button' | 'submit' | 'reste';
 }
 
-const template = `{{label}}`;
+const template = '{{label}}';
 
-export class Button extends Block {
-  constructor(props) {
-    super("button", props);
+export class Button extends Block<ButtonProps> {
+  constructor(props: ButtonProps) {
+    super('button', props);
   }
 
   init() {
     const currentElement = this.getContent();
 
     if (currentElement) {
-      const { type = "button" } = this.props;
+      const { type = 'button' } = this.props;
 
-      currentElement.setAttribute("type", type);
+      currentElement.setAttribute('type', type);
     }
   }
 

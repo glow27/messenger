@@ -13,9 +13,11 @@
         "sourceType": "module"
     },
     "plugins": [
-        "@typescript-eslint"
+        "@typescript-eslint",
+        "html"
     ],
-    
+    "ignorePatterns": ["**/*.scss"],
     "rules": {
+      "quotes": ["error", "single"]
     }
 }

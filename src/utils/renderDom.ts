@@ -1,11 +1,13 @@
-export function render(query, block) {
+import { Block } from './block';
+
+export function render(query: string, block: Block) {
   const root = document.querySelector(query);
 
-  root.innerHTML = "";
+  if (root) {
+    root.innerHTML = '';
 
-  // Можно завязаться на реализации вашего класса Block
-
-  root.append(block.getContent());
-
+    root.append(block.getContent() as Node);
+  }
+  
   block.dispatchComponentDidMount();
 }

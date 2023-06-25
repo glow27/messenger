@@ -1,4 +1,16 @@
-import { Block } from "../utils/block";
+import { CommonProps } from '../types/common';
+import { FormField } from './FormField';
+import { Block } from '../utils/block';
+import { Button } from './Button';
+
+import { Link } from './Link';
+
+interface FormProps extends CommonProps {
+  fields: FormField[];
+  formTitle: string,
+  button: Button;
+  link: Link;
+}
 
 const template = `
   <form class="form">
@@ -10,14 +22,14 @@ const template = `
     {{{ link }}}
   </form>`;
 
-export class Form extends Block {
-  constructor(props) {
-    super("div", props);
+export class Form extends Block<FormProps> {
+  constructor(props: FormProps) {
+    super('div', props);
   }
 
   init() {
     const currentElement = this.getContent();
-    currentElement?.classList.add("centeredContainer");
+    currentElement?.classList.add('centeredContainer');
   }
 
   render() {

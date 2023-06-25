@@ -1,4 +1,4 @@
-import { EventBusListeners, EventCallback } from "../types/common";
+import { EventBusListeners, EventCallback, UnknownObject } from '../types/common';
 
 export class EventBus {
   listeners: EventBusListeners;
@@ -25,7 +25,7 @@ export class EventBus {
     );
   }
 
-  emit(event: string, ...args: object[]) {
+  emit(event: string, ...args: UnknownObject[]) {
     if (!this.listeners[event]) {
       throw new Error(`Нет события: ${event}`);
     }

@@ -1,6 +1,7 @@
-import { Block } from "../utils/block";
+import { CommonProps } from '../types/common';
+import { Block } from '../utils/block';
 
-interface FormFieldProps {
+interface FormFieldProps extends CommonProps {
   fieldName: string;
   fieldLabel: string;
 }
@@ -9,9 +10,9 @@ const template = `
   {{ fieldLabel }}
   <input type="text" name={{ fieldName }} class="formField" />`;
 
-export class FormField extends Block {
-  constructor(props) {
-    super("label", props);
+export class FormField extends Block<FormFieldProps> {
+  constructor(props: FormFieldProps) {
+    super('label', props);
   }
 
   render() {

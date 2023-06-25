@@ -1,6 +1,7 @@
-import { Block } from "../utils/block";
+import { CommonProps } from '../types/common';
+import { Block } from '../utils/block';
 
-interface ProfileFieldProps {
+interface ProfileFieldProps extends CommonProps {
   fieldName: string;
   fieldLabel: string;
 }
@@ -9,14 +10,14 @@ const template = `
   {{ fieldLabel }}
   <input type="text"  name={{ fieldName }} class="profileField" />`;
 
-export class ProfileField extends Block {
-  constructor(props) {
-    super("label", props);
+export class ProfileField extends Block<ProfileFieldProps> {
+  constructor(props: ProfileFieldProps) {
+    super('label', props);
   }
 
   init() {
     const currentElement = this.getContent();
-    currentElement?.classList.add("profileFieldLabel");
+    currentElement?.classList.add('profileFieldLabel');
   }
 
 

@@ -1,25 +1,33 @@
-import Handlebars from "handlebars";
-import { nanoid } from "nanoid";
-import { BlockMeta } from "../types/common";
-import { EventBus } from "./eventBus";
+import Handlebars from 'handlebars';
+import { nanoid } from 'nanoid';
+import { EventBus } from './eventBus';
+import {
+  BlockMeta,
+  CommonProps,
+  Settings,
+  UnknownObject,
+  hasSettingsWithId,
+} from '../types/common';
 
-export class Block {
+type ChildrenType = Record<string, Block | Block[]>;
+
+export class Block<P = UnknownObject> {
   static EVENTS = {
-    INIT: "init",
-    FLOW_CDM: "flow:component-did-mount",
-    FLOW_CDU: "flow:component-did-update",
-    FLOW_RENDER: "flow:render",
+    INIT: 'init',
+    FLOW_CDM: 'flow:component-did-mount',
+    FLOW_CDU: 'flow:component-did-update',
+    FLOW_RENDER: 'flow:render',
   };
 
-  eventBus: () => EventBus;
-  _element: HTMLElement | null = null;
-  _meta: BlockMeta | null = null;
-  settings: object;
-  children: any;
-  props: object;
-  _id: string;
+  private eventBus: () => EventBus;
+  private _element: HTMLElement | null = null;
+  private _meta: BlockMeta;
+  private settings: Settings;
+  private children: ChildrenType;
+  protected props: P;
+  private _id: string;
 
-  constructor(tagName = "div", propsAndChildren = {}) {
+  constructor(tagName = 'div', propsAndChildren: P) {
     const { children, props } = this._getChildren(propsAndChildren);
 
     this.children = children;
@@ -31,11 +39,11 @@ export class Block {
     };
 
     this.settings = props.settings || {};
-    this._id = "";
+    this._id = '';
 
     if (this.settings.withId) this._id = nanoid();
 
-    this.props = this._makePropsProxy({ ...props, __id: this._id }, this);
+    this.props = this._makePropsProxy({ ...props, __id: this._id } as P, this);
 
     this.eventBus = () => eventBus;
 
@@ -43,9 +51,9 @@ export class Block {
     eventBus.emit(Block.EVENTS.INIT);
   }
 
-  _getChildren(propsAndChildren) {
-    const children = {};
-    const props = {};
+  _getChildren(propsAndChildren: Partial<P>) {
+    const children: ChildrenType = {};
+    const props: UnknownObject = {};
 
     Object.entries(propsAndChildren).forEach(([key, value]) => {
       if (value instanceof Block) {
@@ -75,8 +83,11 @@ export class Block {
     if (tagName) this._element = this._createDocumentElement(tagName);
   }
 
-  compile(template, context) {
-    if (context.settings?.withId) return Handlebars.compile(template)(context);
+  compile(template: string, context: UnknownObject) {
+    if (context.settings && hasSettingsWithId(context.settings)) {
+      return Handlebars.compile(template)(context);
+    }
+
     const contextAndStubs = { ...context };
 
     Object.entries(this.children).forEach(([key, child]) => {
@@ -89,7 +100,9 @@ export class Block {
       }
     });
 
-    const fragment = this._createDocumentElement("template");
+    const fragment = this._createDocumentElement(
+      'template'
+    ) as HTMLTemplateElement;
 
     const html = Handlebars.compile(template)(contextAndStubs);
 
@@ -104,7 +117,7 @@ export class Block {
             return;
           }
 
-          stub.replaceWith(el.getContent());
+          stub.replaceWith(el.getContent() as Node);
         });
       } else {
         const stub = fragment.content.querySelector(`[data-id="${child._id}"]`);
@@ -115,14 +128,14 @@ export class Block {
 
         // child.getContent()?.append(...Array.from(stub.childNodes));
 
-        stub.replaceWith(child.getContent());
+        stub.replaceWith(child.getContent() as Node);
       }
     });
 
     return fragment.content;
   }
 
-  _init() {
+  private _init() {
     this._createResources();
 
     this.init();
@@ -130,9 +143,11 @@ export class Block {
     this.eventBus().emit(Block.EVENTS.FLOW_RENDER);
   }
 
-  init() {}
+  protected init(): void {
+    return undefined;
+  }
 
-  _componentDidMount() {
+  private _componentDidMount() {
     this.componentDidMount();
 
     Object.values(this.children).forEach((child) => {
@@ -144,64 +159,74 @@ export class Block {
     });
   }
 
-  // Может переопределять пользователь, необязательно трогать
-  componentDidMount(/*oldProps?: object*/) {}
+  protected componentDidMount(/*oldProps?: object*/) {
+    return undefined;
+  }
 
-  dispatchComponentDidMount() {
+  public dispatchComponentDidMount() {
     this.eventBus().emit(Block.EVENTS.FLOW_CDM);
   }
 
-  _componentDidUpdate(/*oldProps: object, newProps: object*/) {
-    // const response = this.componentDidUpdate(oldProps, newProps);
-    this.eventBus().emit(Block.EVENTS.FLOW_RENDER);
+  private _componentDidUpdate(
+    oldProps: UnknownObject,
+    newProps: UnknownObject
+  ) {
+    const response = this.componentDidUpdate(oldProps, newProps);
+    if (response) this.eventBus().emit(Block.EVENTS.FLOW_RENDER);
   }
 
-  // Может переопределять пользователь, необязательно трогать
-  componentDidUpdate(/*oldProps: object, newProps: object*/) {
+  protected componentDidUpdate(
+    oldProps: UnknownObject,
+    newProps: UnknownObject
+  ) {
     return true;
   }
 
-  setProps = (nextProps: object) => {
+  setProps = (nextProps: Partial<P>) => {
     if (!nextProps) {
       return;
     }
 
-    Object.assign(this.props, nextProps);
+    Object.assign(this.props as UnknownObject, nextProps);
   };
 
   get element() {
     return this._element;
   }
 
-  _render() {
+  get id() {
+    return this._id;
+  }
+
+  private _render() {
     const block = this.render();
 
     this._removeEvents();
 
-    this._element.innerHTML = "";
-
     if (this._element) {
+      this._element.innerHTML = '';
+
       this._element.append(block);
 
       this._addEvents();
     }
   }
 
-  // Может переопределять пользователь, необязательно трогать
-  render() {
-    return;
+  protected render(): DocumentFragment | string {
+    return '';
   }
 
   getContent() {
     return this.element;
   }
 
-  _addEvents() {
-    const { events = {}, settings = {} } = this.props;
+  private _addEvents() {
+    const { events = {}, settings = {} } = this.props as P & CommonProps;
 
     if (!settings.selectorForEvent) {
       Object.keys(events).forEach((eventName) => {
-        this._element.addEventListener(eventName, events[eventName]);
+        if (this._element)
+          this._element.addEventListener(eventName, events[eventName]);
       });
     } else {
       const selectedElement = this._element?.querySelector(
@@ -209,42 +234,44 @@ export class Block {
       );
 
       Object.keys(events).forEach((eventName) => {
-        selectedElement.addEventListener(eventName, events[eventName]);
+        if (selectedElement)
+          selectedElement.addEventListener(eventName, events[eventName]);
       });
     }
   }
 
-  _removeEvents() {
-    const { events = {} } = this.props;
+  private _removeEvents() {
+    const { events = {} } = this.props as P & CommonProps;
 
     Object.keys(events).forEach((eventName) => {
-      this._element.removeEventListener(eventName, events[eventName]);
+      if (this._element)
+        this._element.removeEventListener(eventName, events[eventName]);
     });
   }
 
-  _makePropsProxy(props: object, current: this) {
-    const proxyProps = new Proxy(props, {
-      get(target: { [key: string]: unknown }, prop) {
-        if (typeof prop === "string" && prop.indexOf("_") === 0) {
-          throw new Error("No access");
+  private _makePropsProxy(props: P, current: this): P {
+    const proxyProps = new Proxy(props as UnknownObject, {
+      get(target: UnknownObject, prop) {
+        if (typeof prop === 'string' && prop.indexOf('_') === 0) {
+          throw new Error('No access');
         }
 
-        if (typeof prop === "string") {
+        if (typeof prop === 'string') {
           const value = target[prop];
-          return typeof value === "function" ? value.bind(target) : value;
+          return typeof value === 'function' ? value.bind(target) : value;
         }
       },
       deleteProperty() {
-        throw new Error("No access");
+        throw new Error('No access');
       },
-      set(target: { [key: string]: unknown }, prop, value) {
-        if (typeof prop === "string" && prop.indexOf("_") === 0) {
-          throw new Error("No access");
+      set(target: UnknownObject, prop, value) {
+        if (typeof prop === 'string' && prop.indexOf('_') === 0) {
+          throw new Error('No access');
         }
         const oldProps = { ...target };
 
-        if (typeof value === "function") value.bind(target);
-        if (typeof prop === "string") target[prop] = value;
+        if (typeof value === 'function') value.bind(target);
+        if (typeof prop === 'string') target[prop] = value;
 
         current.eventBus().emit(Block.EVENTS.FLOW_CDU, oldProps, target);
 
@@ -252,25 +279,24 @@ export class Block {
       },
     });
 
-    return proxyProps;
+    return proxyProps as P;
   }
 
-  _createDocumentElement(tagName: string) {
-    // Можно сделать метод, который через фрагменты в цикле создаёт сразу несколько блоков
+  private _createDocumentElement(tagName: string) {
     const element = document.createElement(tagName);
 
-    if (this._id) element.setAttribute("data-id", this._id);
+    if (this._id) element.setAttribute('data-id', this._id);
 
     return element;
   }
 
   show() {
     const element = this.getContent();
-    if (element) element.style.display = "block";
+    if (element) element.style.display = 'block';
   }
 
   hide() {
     const element = this.getContent();
-    if (element) element.style.display = "none";
+    if (element) element.style.display = 'none';
   }
 }

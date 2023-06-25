@@ -1,8 +1,10 @@
-import { Block } from "../utils/block";
+import { Block } from '../utils/block';
+import { Link } from './Link';
 
-interface ButtonProps {
-  label: string;
-  type?: "button" | "submit" | "reste";
+interface ErrorComponentProps {
+  messege: string;
+  code: string;
+  link: Link;
 }
 
 const template = `
@@ -12,14 +14,14 @@ const template = `
     {{{ link }}}
   </div>`;
 
-export class ErrorComponent extends Block {
-  constructor(props) {
-    super("div", props);
+export class ErrorComponent extends Block<ErrorComponentProps> {
+  constructor(props: ErrorComponentProps) {
+    super('div', props);
   }
 
   init() {
     const currentElement = this.getContent();
-    currentElement?.classList.add("errorPageContainer");
+    currentElement?.classList.add('errorPageContainer');
   }
 
   render() {
