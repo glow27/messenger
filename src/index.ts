@@ -1,8 +1,9 @@
 import { notFoundPage } from './pages/errors';
 import { profileForm } from './pages/profile';
-import { signinForm } from './pages/signin';
 import { signupForm } from './pages/signup';
-import { chatPage } from './pages/chat';
+// import { chatPage } from './pages/chat';
+import { render } from './utils/renderDom';
+import { signinForm } from './pages/signin/index'
 
 const routes = {
   signin: '/signin',
@@ -18,27 +19,27 @@ if (main) {
   switch (window.location.pathname) {
     case '/':
     case routes.signin: {
-      main.innerHTML = signinForm;
-  
+      render("main", signinForm);
+
       break;
     }
-    case routes.chat: {
-      main.innerHTML = chatPage;
+    // case routes.chat: {
+    //   main.innerHTML = chatPage;
   
-      break;
-    }
+    //   break;
+    // }
     case routes.signup: {
-      main.innerHTML = signupForm;
+      render("main", signupForm);
   
       break;
     }
     case routes.profile: {
-      main.innerHTML = profileForm;
+      render("main", profileForm);
   
       break;
     }
     default: {
-      main.innerHTML = notFoundPage;
+      render("main", notFoundPage);
     }
   }
 }

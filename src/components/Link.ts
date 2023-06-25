@@ -1,12 +1,32 @@
-import Handlebars from 'handlebars';
+import { Block } from "../utils/block";
 
 interface LinkProps {
   href: string;
   linkText: string;
 }
 
-export const Link = ({ href, linkText }: LinkProps) =>
-  Handlebars.compile(`<a href={{ href }}>{{ linkText }}</a>`)({
-    href,
-    linkText,
-  });
+const template = `{{ linkText }}`
+
+export class Link extends Block {
+  constructor(props) {
+    super("a", props);
+  }
+
+  init() {
+    const currentElement = this.getContent();
+
+    if (currentElement) {
+      const { href } = this.props;
+
+      currentElement.setAttribute("href", href);
+    }
+
+    
+  }
+
+  render() {
+    const { linkText } = this.props;
+
+    return this.compile(template, { linkText });
+  }
+}

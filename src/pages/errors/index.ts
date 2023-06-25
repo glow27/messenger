@@ -1,8 +1,13 @@
-import { errorTemplate } from '../../components/templates/errorPage.tmpl';
-import { Link } from '../../components/Link';
+import { ErrorComponent } from "../../components/ErrorComponent";
+import { Link } from "../../components/Link";
 
-export const notFoundPage = errorTemplate({
-  code: '404',
-  messege: 'not found',
-  link: Link({ href: '/chat', linkText: 'Back' }),
+const link = new Link({
+  linkText: "Back",
+  href: "chat",
+});
+
+export const notFoundPage = new ErrorComponent({
+  messege: "not found",
+  code: "404",
+  link,
 });

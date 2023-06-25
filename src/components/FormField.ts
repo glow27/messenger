@@ -1,12 +1,22 @@
-import Handlebars from 'handlebars';
+import { Block } from "../utils/block";
 
 interface FormFieldProps {
   fieldName: string;
   fieldLabel: string;
 }
 
-export const FormField = ({ fieldName, fieldLabel }: FormFieldProps) =>
-  Handlebars.compile(`
-    <label for={{ fieldName }} >{{ fieldLabel }}</label>
-    <input type="text"  name={{ fieldName }} id={{ fieldName }} class="formField" />`
-  )({ fieldName, fieldLabel });
+const template = `
+  {{ fieldLabel }}
+  <input type="text" name={{ fieldName }} class="formField" />`;
+
+export class FormField extends Block {
+  constructor(props) {
+    super("label", props);
+  }
+
+  render() {
+    const { fieldLabel, fieldName } = this.props;
+
+    return this.compile(template, { fieldLabel, fieldName });
+  }
+}
