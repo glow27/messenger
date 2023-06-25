@@ -1,9 +1,10 @@
-@import 'variables';
+@import "variables";
 
 html,
 body,
 main {
   height: 100%;
+  margin: 0;
 }
 
 a {
@@ -17,81 +18,4 @@ a {
   width: 100%;
 
   @include centeredFlex;
-}
-
-.form {
-  width: 400px;
-
-  @include border;
-
-  box-shadow: 10px 10px 10px $base-color;
-  padding: 8px 40px 32px;
-
-  @include centeredFlex;
-
-  flex-direction: column;
-}
-
-.form.profile {
-  width: 40%;
-}
-
-.form label {
-  width: 100%;
-  margin: 4px 16px;
-
-  &.profileFieldLabel {
-    display: flex;
-    justify-content: space-between;
-    align-items: baseline;
-  }
-}
-
-.form button {
-  margin: 32px 0 16px;
-  width: 50%;
-}
-
-.formField {
-  width: 100%;
-
-  @include field;
-  @include border;
-}
-
-.profileField {
-  width: 60%;
-
-  @include field;
-  @include border;
-}
-
-.avatarContainer {
-  padding: 32px 16px 48px;
-}
-
-.avatarInput {
-  display: none;
-}
-
-label.avatarLabel {
-  width: fit-content;
-  border-radius: 50%;
-  
-  @include centeredFlex;
-}
-
-.avatarImg {
-  border-radius: 50%;
-
-  &:hover {
-    cursor: pointer;
-  }
-}
-
-.errorPageContainer {
-  @include centeredFlex;
-
-  text-align: center;
-  flex-direction: column;
 }

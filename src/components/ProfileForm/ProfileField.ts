@@ -1,5 +1,6 @@
-import { CommonProps } from '../types/common';
-import { Block } from '../utils/block';
+import { CommonProps } from '../../types/common';
+import { Block } from '../../utils/block';
+import styles from './profileForm.module.scss'
 
 interface ProfileFieldProps extends CommonProps {
   fieldName: string;
@@ -8,18 +9,12 @@ interface ProfileFieldProps extends CommonProps {
 
 const template = `
   {{ fieldLabel }}
-  <input type="text"  name={{ fieldName }} class="profileField" />`;
+  <input type="text"  name={{ fieldName }} class="${styles.profileField}" />`;
 
 export class ProfileField extends Block<ProfileFieldProps> {
   constructor(props: ProfileFieldProps) {
     super('label', props);
   }
-
-  init() {
-    const currentElement = this.getContent();
-    currentElement?.classList.add('profileFieldLabel');
-  }
-
 
   render() {
     const { fieldLabel, fieldName } = this.props;

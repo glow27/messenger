@@ -1,0 +1,26 @@
+@import "../../variables";
+
+.profileForm {
+  width: 40%;
+
+  @include form;
+}
+
+.profileForm label {
+  @include formLabel;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+
+.profileForm button {
+  @include formBtn;
+}
+
+.profileField {
+  width: 60%;
+
+  @include field;
+  @include border;
+}

@@ -1,19 +1,21 @@
-import { CommonProps } from '../types/common';
+import { CommonProps } from '../../types/common';
 import { FormField } from './FormField';
-import { Block } from '../utils/block';
-import { Button } from './Button';
+import { Block } from '../../utils/block';
+import { Button } from '../Button/Button';
 
-import { Link } from './Link';
+import { Link } from '../Link/Link';
+
+import styles from './authForm.module.scss';
 
 interface FormProps extends CommonProps {
   fields: FormField[];
-  formTitle: string,
+  formTitle: string;
   button: Button;
   link: Link;
 }
 
 const template = `
-  <form class="form">
+  <form class="${styles.authForm}">
     <h3>{{ formTitle }}</h3>
     {{#each fields}}
       {{{ this }}}

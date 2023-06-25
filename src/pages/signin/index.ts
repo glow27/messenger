@@ -1,8 +1,13 @@
-import { SubmitFormValues, settingsIdandFormSelector, settingsIdandInputSelector, settingsWithId } from '../consts';
-import { FormField, FormFieldProps } from '../../components/FormField';
-import { Button } from '../../components/Button';
-import { Link } from '../../components/Link';
-import { Form } from '../../components/Form';
+import {
+  SubmitFormValues,
+  settingsIdandFormSelector,
+  settingsIdandInputSelector,
+  settingsWithId,
+} from '../consts';
+import { FormField, FormFieldProps } from '../../components/AuthForm/FormField';
+import { Button } from '../../components/Button/Button';
+import { Link } from '../../components/Link/Link';
+import { Form } from '../../components/AuthForm/Form';
 
 const singinFormFields: FormFieldProps[] = [
   {
@@ -26,7 +31,7 @@ const singinFormFields: FormFieldProps[] = [
 const button = new Button({
   label: 'sign in',
   settings: settingsWithId,
-  type: 'submit'
+  type: 'submit',
 });
 
 const link = new Link({

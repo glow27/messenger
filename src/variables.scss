@@ -28,3 +28,31 @@ $border-dark: rgba($base-color, 0.88);
 @mixin border {
   border: 1px solid $border-dark;
 }
+
+@mixin chat {
+  height: 100%;
+  box-sizing: border-box;
+
+  @include border;
+}
+
+@mixin form {
+  @include border;
+
+  box-shadow: 10px 10px 10px $base-color;
+  padding: 8px 40px 32px;
+
+  @include centeredFlex;
+
+  flex-direction: column;
+}
+
+@mixin formBtn {
+  margin: 32px 0 16px;
+  width: 50%;
+}
+
+@mixin formLabel {
+  width: 100%;
+  margin: 4px 16px;
+}

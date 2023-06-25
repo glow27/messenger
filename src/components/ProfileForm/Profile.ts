@@ -1,10 +1,11 @@
-import { CommonProps } from '../types/common';
+import { CommonProps } from '../../types/common';
 import { ProfileField } from './ProfileField';
-import { AvatarInput } from './AvatarInput';
-import { Block } from '../utils/block';
-import { Button } from './Button';
-import { Link } from './Link';
+import { AvatarInput } from '../AvatarInput/AvatarInput';
+import styles from './profileForm.module.scss';
+import { Block } from '../../utils/block';
+import { Button } from '../Button/Button';
 
+import { Link } from '../Link/Link';
 
 interface ProfileProps extends CommonProps {
   fields: ProfileField[];
@@ -14,7 +15,7 @@ interface ProfileProps extends CommonProps {
 }
 
 const template = `
-  <form class="form profile">
+  <form class="${styles.profileForm}">
     {{{ avatar }}}
     {{#each fields}}
       {{{ this }}}

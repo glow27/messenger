@@ -1,11 +1,20 @@
-import { SubmitFormValues, settingsIdandFormSelector, settingsIdandInputSelector, settingsWithId } from '../consts';
-import { FormField } from '../../components/FormField';
-import { Button } from '../../components/Button';
-import { Link } from '../../components/Link';
-import { Form } from '../../components/Form';
+import {
+  SubmitFormValues,
+  settingsIdandFormSelector,
+  settingsIdandInputSelector,
+  settingsWithId,
+} from '../consts';
+import { FormField } from '../../components/AuthForm/FormField';
+import { Button } from '../../components/Button/Button';
+import { Link } from '../../components/Link/Link';
+import { Form } from '../../components/AuthForm/Form';
 
 const singupFormFields = [
-  { fieldLabel: 'Email', fieldName: 'email', settings: settingsIdandInputSelector },
+  {
+    fieldLabel: 'Email',
+    fieldName: 'email',
+    settings: settingsIdandInputSelector,
+  },
   {
     fieldLabel: 'First name',
     fieldName: 'first_name',
@@ -16,9 +25,21 @@ const singupFormFields = [
     fieldName: 'second_name',
     settings: settingsIdandInputSelector,
   },
-  { fieldLabel: 'Phone', fieldName: 'phone', settings: settingsIdandInputSelector },
-  { fieldLabel: 'Login', fieldName: 'login', settings: settingsIdandInputSelector },
-  { fieldLabel: 'Password', fieldName: 'password', settings: settingsIdandInputSelector },
+  {
+    fieldLabel: 'Phone',
+    fieldName: 'phone',
+    settings: settingsIdandInputSelector,
+  },
+  {
+    fieldLabel: 'Login',
+    fieldName: 'login',
+    settings: settingsIdandInputSelector,
+  },
+  {
+    fieldLabel: 'Password',
+    fieldName: 'password',
+    settings: settingsIdandInputSelector,
+  },
   {
     fieldLabel: 'Repeat password',
     fieldName: 'repeatPass',
@@ -29,7 +50,7 @@ const singupFormFields = [
 const button = new Button({
   label: 'sign up',
   settings: settingsWithId,
-  type: 'submit'
+  type: 'submit',
 });
 
 const link = new Link({

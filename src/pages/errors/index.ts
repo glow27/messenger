@@ -1,5 +1,5 @@
-import { ErrorComponent } from '../../components/ErrorComponent';
-import { Link } from '../../components/Link';
+import { ErrorComponent } from '../../components/ErrorComponent/ErrorComponent';
+import { Link } from '../../components/Link/Link';
 
 const link = new Link({
   linkText: 'Back',
@@ -7,7 +7,7 @@ const link = new Link({
 });
 
 export const notFoundPage = new ErrorComponent({
-  messege: 'not found',
+  message: 'not found',
   code: '404',
   link,
 });

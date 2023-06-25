@@ -108,27 +108,22 @@ export class Block<P = UnknownObject> {
 
     fragment.innerHTML = html;
 
+    const replaceStub = (block: Block) => {
+      const stub = fragment.content.querySelector(`[data-id="${block._id}"]`);
+
+      if (!stub) {
+        return;
+      }
+
+      stub.replaceWith(block.getContent() as Node);
+    }
+
     Object.values(this.children).forEach((child) => {
       if (Array.isArray(child)) {
-        child.forEach((el) => {
-          const stub = fragment.content.querySelector(`[data-id="${el._id}"]`);
-
-          if (!stub) {
-            return;
-          }
-
-          stub.replaceWith(el.getContent() as Node);
-        });
+        child.forEach((el) => replaceStub(el)
+        );
       } else {
-        const stub = fragment.content.querySelector(`[data-id="${child._id}"]`);
-
-        if (!stub) {
-          return;
-        }
-
-        // child.getContent()?.append(...Array.from(stub.childNodes));
-
-        stub.replaceWith(child.getContent() as Node);
+        replaceStub(child)
       }
     });
 
@@ -179,6 +174,7 @@ export class Block<P = UnknownObject> {
     oldProps: UnknownObject,
     newProps: UnknownObject
   ) {
+    if (oldProps === newProps) return true
     return true;
   }
 

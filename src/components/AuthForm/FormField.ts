@@ -1,5 +1,6 @@
-import { CommonProps } from '../types/common';
-import { Block } from '../utils/block';
+import { CommonProps } from '../../types/common';
+import { Block } from '../../utils/block';
+import styles from './authForm.module.scss'
 
 export interface FormFieldProps extends CommonProps {
   fieldName: string;
@@ -7,8 +8,8 @@ export interface FormFieldProps extends CommonProps {
 }
 
 const template = `
-  {{ fieldLabel }}
-  <input type="text" name={{ fieldName }} class="formField" />`;
+  <span>{{ fieldLabel }}</span>
+  <input type="text" name={{ fieldName }} class="${styles.formField}" />`;
 
 export class FormField extends Block<FormFieldProps> {
   constructor(props: FormFieldProps) {

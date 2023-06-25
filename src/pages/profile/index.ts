@@ -1,9 +1,14 @@
-import { SubmitFormValues, settingsIdandFormSelector, settingsIdandInputSelector, settingsWithId } from '../consts';
-import { ProfileField } from '../../components/ProfileField';
-import { AvatarInput } from '../../components/AvatarInput';
-import { Profile } from '../../components/Profile';
-import { Button } from '../../components/Button';
-import { Link } from '../../components/Link';
+import {
+  SubmitFormValues,
+  settingsIdandFormSelector,
+  settingsIdandInputSelector,
+  settingsWithId,
+} from '../consts';
+import { ProfileField } from '../../components/ProfileForm/ProfileField';
+import { AvatarInput } from '../../components/AvatarInput/AvatarInput';
+import { Profile } from '../../components/ProfileForm/Profile';
+import { Button } from '../../components/Button/Button';
+import { Link } from '../../components/Link/Link';
 
 const profileFormFields = [
   {

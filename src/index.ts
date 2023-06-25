@@ -2,8 +2,8 @@ import { signinForm } from './pages/signin/index';
 import { notFoundPage } from './pages/errors';
 import { profileForm } from './pages/profile';
 import { signupForm } from './pages/signup';
-// import { chatPage } from './pages/chat';
 import { render } from './utils/renderDom';
+import { chatPage } from './pages/chat';
 import { Block } from './utils/block';
 
 const routes = {
@@ -25,11 +25,11 @@ window.addEventListener('DOMContentLoaded', () => {
 
         break;
       }
-      // case routes.chat: {
-      //   main.innerHTML = chatPage;
+      case routes.chat: {
+        render('main', chatPage as unknown as Block);
 
-      //   break;
-      // }
+        break;
+      }
       case routes.signup: {
         render('main', signupForm as unknown as Block);
 

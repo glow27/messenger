@@ -1,5 +1,5 @@
-import { CommonProps } from '../types/common';
-import { Block } from '../utils/block';
+import { CommonProps } from '../../types/common';
+import { Block } from '../../utils/block';
 
 interface ButtonProps extends CommonProps {
   label: string;

@@ -1,11 +1,11 @@
-import { Block } from '../utils/block';
+import { Block } from '../../utils/block';
 
 interface LinkProps {
   href: string;
   linkText: string;
 }
 
-const template = '{{ linkText }}'
+const template = '{{ linkText }}';
 
 export class Link extends Block<LinkProps> {
   constructor(props: LinkProps) {
