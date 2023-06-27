@@ -18,6 +18,7 @@
     ],
     "ignorePatterns": ["**/*.scss"],
     "rules": {
-      "quotes": ["error", "single"]
+      "quotes": ["error", "single"],
+      "no-useless-escape": "warn"
     }
 }

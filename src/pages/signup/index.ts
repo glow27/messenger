@@ -1,49 +1,90 @@
-import {
-  SubmitFormValues,
-  settingsIdandFormSelector,
-  settingsIdandInputSelector,
-  settingsWithId,
-} from '../consts';
-import { FormField } from '../../components/AuthForm/FormField';
+import { FormField, FormFieldProps } from '../../components/AuthForm/FormField';
 import { Button } from '../../components/Button/Button';
 import { Link } from '../../components/Link/Link';
 import { Form } from '../../components/AuthForm/Form';
+import {
+  settingsIdAndInputSelector,
+  settingsIdandFormSelector,
+  settingsWithId,
+} from '../consts';
+import {
+  emailPattern,
+  loginPattern,
+  namePattern,
+  passwordPattern,
+  phonePattern,
+} from '../../utils/regexPatterns';
+import {
+  submitFormValues,
+  validateField,
+  validatePasswordMatch,
+} from '../../utils/helpers';
 
-const singupFormFields = [
+const singupFormFields: FormFieldProps[] = [
   {
     fieldLabel: 'Email',
     fieldName: 'email',
-    settings: settingsIdandInputSelector,
+    settings: settingsIdAndInputSelector,
+    type: 'email',
+    events: {
+      blur: validateField,
+    },
+    pattern: emailPattern,
   },
   {
     fieldLabel: 'First name',
     fieldName: 'first_name',
-    settings: settingsIdandInputSelector,
+    settings: settingsIdAndInputSelector,
+    pattern: namePattern,
+    events: {
+      blur: validateField,
+    },
   },
   {
     fieldLabel: 'Second name',
     fieldName: 'second_name',
-    settings: settingsIdandInputSelector,
+    settings: settingsIdAndInputSelector,
+    pattern: namePattern,
+    events: {
+      blur: validateField,
+    },
   },
   {
     fieldLabel: 'Phone',
     fieldName: 'phone',
-    settings: settingsIdandInputSelector,
+    settings: settingsIdAndInputSelector,
+    pattern: phonePattern,
+    events: {
+      blur: validateField,
+    },
   },
   {
     fieldLabel: 'Login',
     fieldName: 'login',
-    settings: settingsIdandInputSelector,
+    settings: settingsIdAndInputSelector,
+    pattern: loginPattern,
+    events: {
+      blur: validateField,
+    },
   },
   {
     fieldLabel: 'Password',
     fieldName: 'password',
-    settings: settingsIdandInputSelector,
+    settings: settingsIdAndInputSelector,
+    pattern: passwordPattern,
+    type: 'password',
+    events: {
+      blur: validateField,
+    },
   },
   {
     fieldLabel: 'Repeat password',
     fieldName: 'repeatPass',
-    settings: settingsIdandInputSelector,
+    settings: settingsIdAndInputSelector,
+    type: 'password',
+    events: {
+      blur: validatePasswordMatch,
+    },
   },
 ];
 
@@ -61,7 +102,7 @@ const link = new Link({
 export const signupForm = new Form({
   fields: singupFormFields.map((el) => new FormField(el)),
   events: {
-    submit: SubmitFormValues,
+    submit: submitFormValues,
   },
   settings: settingsIdandFormSelector,
   formTitle: 'SIGN UP',

@@ -1,30 +1,34 @@
+import { FormField, FormFieldProps } from '../../components/AuthForm/FormField';
+import { loginPattern, passwordPattern } from '../../utils/regexPatterns';
+import { submitFormValues, validateField } from '../../utils/helpers';
+import { Button } from '../../components/Button/Button';
+import { Form } from '../../components/AuthForm/Form';
+import { Link } from '../../components/Link/Link';
 import {
-  SubmitFormValues,
   settingsIdandFormSelector,
-  settingsIdandInputSelector,
+  settingsIdAndInputSelector,
   settingsWithId,
 } from '../consts';
-import { FormField, FormFieldProps } from '../../components/AuthForm/FormField';
-import { Button } from '../../components/Button/Button';
-import { Link } from '../../components/Link/Link';
-import { Form } from '../../components/AuthForm/Form';
 
 const singinFormFields: FormFieldProps[] = [
   {
     fieldLabel: 'Login',
     fieldName: 'login',
     events: {
-      blur: () => console.log('uk1'),
+      blur: validateField,
     },
-    settings: settingsIdandInputSelector,
+    pattern: loginPattern,
+    settings: settingsIdAndInputSelector,
   },
   {
     fieldLabel: 'Password',
     fieldName: 'password',
+    type: 'password',
     events: {
-      click: () => console.log('fk2'),
+      blur: validateField,
     },
-    settings: settingsIdandInputSelector,
+    settings: settingsIdAndInputSelector,
+    pattern: passwordPattern,
   },
 ];
 
@@ -42,7 +46,7 @@ const link = new Link({
 export const signinForm = new Form({
   fields: singinFormFields.map((el) => new FormField(el)),
   events: {
-    submit: SubmitFormValues,
+    submit: submitFormValues,
   },
   settings: settingsIdandFormSelector,
   formTitle: 'SIGN IN',

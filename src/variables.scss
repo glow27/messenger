@@ -11,6 +11,7 @@
 $base-color: #bd80cc;
 $dark-color: #5c1e6b;
 $border-dark: rgba($base-color, 0.88);
+$invalid-color: #cf466f;
 
 @mixin centeredFlex {
   display: flex;
@@ -23,6 +24,10 @@ $border-dark: rgba($base-color, 0.88);
   border-radius: 5px;
   box-sizing: border-box;
   margin: 4px 0 8px;
+
+  &:focus-visible {
+    outline: 1px solid $border-dark;
+  }
 }
 
 @mixin border {

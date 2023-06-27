@@ -1,4 +1,4 @@
-@import "variables";
+@import 'variables';
 
 html,
 body,
@@ -18,4 +18,8 @@ a {
   width: 100%;
 
   @include centeredFlex;
+}
+
+.invalidInput {
+  box-shadow: 0 0 8px 1px $invalid-color;
 }

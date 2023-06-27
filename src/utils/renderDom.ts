@@ -1,13 +1,13 @@
 import { Block } from './block';
 
-export function render(query: string, block: Block) {
+export function render(query: string, block: unknown) {
   const root = document.querySelector(query);
 
   if (root) {
     root.innerHTML = '';
 
-    root.append(block.getContent() as Node);
+    root.append((block as Block).getContent() as Node);
   }
   
-  block.dispatchComponentDidMount();
+  (block as Block).dispatchComponentDidMount();
 }

@@ -1,11 +1,11 @@
+import { AvatarInput } from '../AvatarInput/AvatarInput';
 import { CommonProps } from '../../types/common';
 import { ProfileField } from './ProfileField';
-import { AvatarInput } from '../AvatarInput/AvatarInput';
-import styles from './profileForm.module.scss';
 import { Block } from '../../utils/block';
 import { Button } from '../Button/Button';
-
 import { Link } from '../Link/Link';
+
+import styles from './profileForm.module.scss';
 
 interface ProfileProps extends CommonProps {
   fields: ProfileField[];

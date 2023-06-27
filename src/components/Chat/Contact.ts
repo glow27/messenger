@@ -1,10 +1,11 @@
 import { Block } from '../../utils/block';
+
 import styles from './chat.module.scss'
 
 export interface ChatContactProps {
+  lastMessage: string;
   imgSrc: string;
   name: string;
-  lastMessage: string;
   date: string
 }
 
@@ -29,8 +30,10 @@ export class ChatContact extends Block<ChatContactProps> {
     const { imgSrc, name, lastMessage, date } = this.props;
 
     return this.compile(template, { 
+      lastMessage,
       imgSrc,
       name,
-      lastMessage, date});
+      date
+    });
   }
 }

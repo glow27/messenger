@@ -4,12 +4,11 @@ import { profileForm } from './pages/profile';
 import { signupForm } from './pages/signup';
 import { render } from './utils/renderDom';
 import { chatPage } from './pages/chat';
-import { Block } from './utils/block';
 
 const routes = {
+  profile: '/profile',
   signin: '/signin',
   signup: '/signup',
-  profile: '/profile',
   chat: '/chat',
 };
 
@@ -21,27 +20,27 @@ window.addEventListener('DOMContentLoaded', () => {
     switch (window.location.pathname) {
       case '/':
       case routes.signin: {
-        render('main', signinForm as unknown as Block);
+        render('main', signinForm);
 
         break;
       }
       case routes.chat: {
-        render('main', chatPage as unknown as Block);
+        render('main', chatPage);
 
         break;
       }
       case routes.signup: {
-        render('main', signupForm as unknown as Block);
+        render('main', signupForm);
 
         break;
       }
       case routes.profile: {
-        render('main', profileForm as unknown as Block);
+        render('main', profileForm);
 
         break;
       }
       default: {
-        render('main', notFoundPage as unknown as Block);
+        render('main', notFoundPage);
       }
     }
   }

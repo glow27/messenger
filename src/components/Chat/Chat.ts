@@ -1,9 +1,10 @@
-import { CommonProps } from '../../types/common';
-import { Block } from '../../utils/block';
-import { ChatMessage } from './ChatMessage';
-import styles from './chat.module.scss';
 import settingsIcon from '../../../static/set.png';
+import { CommonProps } from '../../types/common';
+import { ChatMessage } from './ChatMessage';
+import { Block } from '../../utils/block';
 import { ChatContact } from './Contact';
+
+import styles from './chat.module.scss';
 
 interface ChatProps extends CommonProps {
   messages: ChatMessage[]
@@ -16,7 +17,7 @@ const template = `
       {{{ this }}}
     {{/each}}
     <form class="${styles.messageForm}">
-      <textarea name="message"></textarea>
+      <textarea name="message" required ></textarea>
       <button>send</button>
     </form>
   </div>
@@ -41,6 +42,8 @@ export class Chat extends Block<ChatProps> {
   }
 
   render() {
-    return this.compile(template, {messages: this.props.messages, contacts: this.props.contacts});
+    const {messages, contacts} = this.props
+
+    return this.compile(template, { messages, contacts });
   }
 }

@@ -1,8 +1,7 @@
 import { CommonProps } from '../../types/common';
-import { FormField } from './FormField';
 import { Block } from '../../utils/block';
 import { Button } from '../Button/Button';
-
+import { FormField } from './FormField';
 import { Link } from '../Link/Link';
 
 import styles from './authForm.module.scss';

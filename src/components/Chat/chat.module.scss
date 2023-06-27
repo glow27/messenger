@@ -1,4 +1,4 @@
-@import "../../variables";
+@import '../../variables';
 
 .chat {
   width: 75%;
@@ -31,6 +31,10 @@
     padding: 8px;
     border-radius: 5px;
     resize: none;
+
+    &:focus-visible {
+      outline: 1px solid $border-dark;
+    }
   }
 
   & button {

@@ -1,4 +1,5 @@
 import { Block } from '../../utils/block';
+
 import styles from './chat.module.scss'
 
 export interface ChatMessageProps {
