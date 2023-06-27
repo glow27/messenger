@@ -47,6 +47,8 @@
 .chatMessage {
   @include border;
 
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
   width: fit-content;
   padding: 8px 16px;
   margin: 8px;
