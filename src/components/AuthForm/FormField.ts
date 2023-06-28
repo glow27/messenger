@@ -15,7 +15,9 @@ const template = `
     {{#if type}} type={{ type }} {{/if}}
     {{#if pattern}} pattern={{ pattern }} {{/if}}
     required
-  />`;
+  />
+  <span>invalid input</span>
+  `;
 
 export class FormField extends Block<FormFieldProps> {
   constructor(props: FormFieldProps) {

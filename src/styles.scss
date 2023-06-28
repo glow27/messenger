@@ -22,4 +22,8 @@ a {
 
 .invalidInput {
   box-shadow: 0 0 8px 1px $invalid-color;
+
+  & + span {
+    display: block !important; 
+  }
 }
