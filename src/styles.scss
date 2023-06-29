@@ -1,89 +1,29 @@
-@import 'variables.scss';
+@import 'variables';
 
-html, body, main {
+html,
+body,
+main {
   height: 100%;
+  margin: 0;
 }
 
 a {
   text-decoration: none;
   color: $dark-color;
-  font-family: 'acme', 'sans-serif';
+  font-family: acme, sans-serif;
 }
 
 .centeredContainer {
   height: 100%;
   width: 100%;
-  
-  @include centeredFlex;
-}
-
-.form {
-  width: 400px;
-  
-  @include border;
-
-  box-shadow: 10px 10px 10px  $base-color;
-  padding: 8px 32px 32px 32px;
 
   @include centeredFlex;
-  
-  flex-direction: column;
 }
 
-.form.profile {
-  width: 40%;
-}
+.invalidInput {
+  box-shadow: 0 0 8px 1px $invalid-color;
 
-.form label {
-  align-self: start;
-  margin: 4px;
-}
-
-.form button {
-  margin: 32px 0 16px 0;
-  width: 50%;
-}
-
-.formField {
-  @include field;
-  
-  @include border;
-
-}
-
-.profileField {
-  @include field;
-  
-  display: flex;
-  justify-content: space-between;
-
-}
-
-.avatarInput {
-  display: none;
-}
-
-label.avatarLabel {
-  width: 100%;
-  padding: 32px 16px 48px 16px;
-  margin: 0;
-  align-self: unset;
-  display: flex;
-  justify-content: center;
-}
-
-.avatarImg {
-  border-radius: 50%;
-
-  &:hover {
-    cursor: pointer;
+  & + span {
+    display: block !important; 
   }
-}
-
-.errorPageContainer {
-  @include centeredFlex;
-
-  text-align: center;
-  
-  flex-direction: column;
 }

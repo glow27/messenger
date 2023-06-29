@@ -1,0 +1,26 @@
+@import '../../variables';
+
+.authForm {
+  width: 400px;
+
+  @include form
+}
+
+.authForm label {
+  & span {
+    margin-left: 4px;
+  }
+
+  @include formLabel
+}
+
+.authForm button {
+  @include formBtn
+}
+
+.formField {
+  width: 100%;
+
+  @include field;
+  @include border;
+}

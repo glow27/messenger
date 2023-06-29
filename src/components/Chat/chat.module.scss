@@ -1,0 +1,112 @@
+@import '../../variables';
+
+.chat {
+  width: 75%;
+  display: flex;
+  flex-direction: column;
+  justify-content: end;
+
+  @include chat;
+}
+
+.contacts {
+  width: 25%;
+
+  @include chat;
+}
+
+.messageForm {
+  height: 160px;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  padding: 24px 32px 32px;
+  box-sizing: border-box;
+  border-top: 2px solid $border-dark;
+
+  & textarea {
+    @include border;
+
+    width: 80%;
+    padding: 8px;
+    border-radius: 5px;
+    resize: none;
+
+    &:focus-visible {
+      outline: 1px solid $border-dark;
+    }
+  }
+
+  & button {
+    width: 80px;
+    height: 80px;
+    align-self: center;
+  }
+}
+
+.chatMessage {
+  @include border;
+
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  padding: 8px 16px;
+  margin: 8px;
+  border-radius: 20px 20px 20px 0;
+}
+
+.settings {
+  @include centeredFlex;
+
+  height: 64px;
+  border-bottom: 2px solid $border-dark;
+
+  & input {
+    @include field;
+    @include border;
+
+    flex-grow: 1;
+    margin: 0 16px;
+  }
+
+  & button {
+    margin: 0 16px;
+  }
+
+  & img {
+    margin-top: 2px;
+  }
+}
+
+.chatContact {
+  display: flex;
+  align-items: center;
+  padding: 0 16px;
+  border-bottom: 1px solid $border-dark;
+  box-sizing: border-box;
+  height: 80px;
+
+   & img {
+    height: 56px;
+    width: 56px;
+    border-radius: 50%;
+   }
+}
+
+.lastMessage {
+  margin-left: 16px;
+  flex: 1;
+  min-width: 0;
+
+ & .date {
+  float: right;
+  color: gray;
+ }
+
+  & .text {
+    margin-top: 8px;
+    text-overflow: ellipsis;
+    overflow: hidden; 
+    white-space: nowrap;
+  }
+}
