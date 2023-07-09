@@ -27,7 +27,7 @@ export class Block<P = UnknownObject> {
   protected props: P;
   private _id: string;
 
-  constructor(tagName = 'div', propsAndChildren: P) {
+  constructor(propsAndChildren: P, tagName = 'div') {
     const { children, props } = this._getChildren(propsAndChildren);
 
     this.children = children;

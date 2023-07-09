@@ -2,7 +2,6 @@ import { ChatContact, ChatContactProps } from '../../components/Chat/Contact';
 import { submitFormValues } from '../../utils/helpers';
 import { settingsIdandFormSelector } from '../consts';
 import emptyAva from '../../../static/emptyAva.png';
-import { Chat } from '../../components/Chat/Chat';
 import {
   ChatMessage,
   ChatMessageProps,
@@ -32,11 +31,11 @@ const contacts: ChatContactProps[] = [
   },
 ];
 
-export const chatPage = new Chat({
+export const chatProps = {
   messages: messages.map((el) => new ChatMessage(el)),
   contacts: contacts.map((el) => new ChatContact(el)),
   settings: settingsIdandFormSelector,
   events: {
     submit: submitFormValues,
   },
-});
+};

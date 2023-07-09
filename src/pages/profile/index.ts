@@ -1,9 +1,9 @@
 import { ProfileField } from '../../components/ProfileForm/ProfileField';
 import { AvatarInput } from '../../components/AvatarInput/AvatarInput';
-import { Profile } from '../../components/ProfileForm/Profile';
 import { Button } from '../../components/Button/Button';
 import { Link } from '../../components/Link/Link';
 import {
+  routes,
   settingsIdandFormSelector,
   settingsIdAndInputSelector,
   settingsWithId,
@@ -98,10 +98,10 @@ const button = new Button({
 
 const link = new Link({
   linkText: 'Back to chat',
-  href: 'chat',
+  href: routes.chat,
 });
 
-export const profileForm = new Profile({
+export const profileProps = {
   fields: profileFormFields.map((el) => new ProfileField(el)),
   events: {
     submit: submitFormValues,
@@ -110,4 +110,4 @@ export const profileForm = new Profile({
   avatar,
   button,
   link,
-});
+};

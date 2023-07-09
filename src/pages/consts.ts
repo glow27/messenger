@@ -9,3 +9,10 @@ export const settingsIdandFormSelector = {
   selectorForEvent: 'form',
   withId: true,
 };
+
+export const routes = {
+  profile: '/profile',
+  signin: '/signin',
+  signup: '/signup',
+  chat: '/chat',
+};

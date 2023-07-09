@@ -1,8 +1,8 @@
 import { FormField, FormFieldProps } from '../../components/AuthForm/FormField';
 import { Button } from '../../components/Button/Button';
 import { Link } from '../../components/Link/Link';
-import { Form } from '../../components/AuthForm/Form';
 import {
+  routes,
   settingsIdAndInputSelector,
   settingsIdandFormSelector,
   settingsWithId,
@@ -96,10 +96,10 @@ const button = new Button({
 
 const link = new Link({
   linkText: 'Back to sign in',
-  href: 'signin',
+  href: routes.signin,
 });
 
-export const signupForm = new Form({
+export const signupProps = {
   fields: singupFormFields.map((el) => new FormField(el)),
   events: {
     submit: submitFormValues,
@@ -108,4 +108,4 @@ export const signupForm = new Form({
   formTitle: 'SIGN UP',
   button,
   link,
-});
+}

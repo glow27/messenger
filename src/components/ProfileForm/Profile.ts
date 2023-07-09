@@ -11,7 +11,7 @@ interface ProfileProps extends CommonProps {
   fields: ProfileField[];
   avatar: AvatarInput;
   button: Button;
-  link: Link;
+  link: typeof Link;
 }
 
 const template = `
@@ -26,7 +26,7 @@ const template = `
 
 export class Profile extends Block<ProfileProps> {
   constructor(props: ProfileProps) {
-    super('div', props);
+    super(props);
   }
 
   init() {

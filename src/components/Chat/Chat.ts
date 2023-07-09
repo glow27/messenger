@@ -33,7 +33,7 @@ const template = `
 
 export class Chat extends Block<ChatProps> {
   constructor(props: ChatProps) {
-    super('div', props);
+    super(props);
   }
 
   init() {

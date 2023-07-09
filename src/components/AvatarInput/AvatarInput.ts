@@ -13,7 +13,7 @@ const template = `
 
 export class AvatarInput extends Block<AvatarInputProps> {
   constructor(props: AvatarInputProps) {
-    super('div', props);
+    super(props);
   }
 
   init() {

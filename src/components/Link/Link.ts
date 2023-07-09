@@ -1,25 +1,31 @@
+import { CommonProps } from '../../types/common';
 import { Block } from '../../utils/block';
+import { Router } from '../../utils/router';
+import { withRouter } from '../../utils/withRouter';
 
-interface LinkProps {
-  href: string;
+interface LinkProps extends CommonProps {
   linkText: string;
+  href: string;
+  router: Router
 }
 
 const template = '{{ linkText }}';
 
-export class Link extends Block<LinkProps> {
+class BaseLink extends Block<LinkProps> {
   constructor(props: LinkProps) {
-    super('a', props);
+    super({
+      ...props,
+      events: {
+        click: (e: Event) => {
+          e.preventDefault()
+          this.navigate()
+        }
+      }
+    }, 'a');
   }
 
-  init() {
-    const currentElement = this.getContent();
-
-    if (currentElement) {
-      const { href } = this.props;
-
-      currentElement.setAttribute('href', href);
-    }
+  navigate() {
+    this.props.router.go(this.props.href);
   }
 
   render() {
@@ -28,3 +34,5 @@ export class Link extends Block<LinkProps> {
     return this.compile(template, { linkText });
   }
 }
+
+export const Link = withRouter(BaseLink);

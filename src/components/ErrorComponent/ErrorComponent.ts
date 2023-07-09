@@ -5,7 +5,7 @@ import styles from './error.module.scss';
 interface ErrorComponentProps {
   message: string;
   code: string;
-  link: Link;
+  link: typeof Link;
 }
 
 const template = `
@@ -17,7 +17,7 @@ const template = `
 
 export class ErrorComponent extends Block<ErrorComponentProps> {
   constructor(props: ErrorComponentProps) {
-    super('div', props);
+    super(props);
   }
 
   init() {

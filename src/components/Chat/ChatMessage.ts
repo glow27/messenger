@@ -10,7 +10,7 @@ const template = '{{ text }}';
 
 export class ChatMessage extends Block<ChatMessageProps> {
   constructor(props: ChatMessageProps) {
-    super('div', props);
+    super(props);
   }
 
   init() {

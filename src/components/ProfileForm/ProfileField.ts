@@ -20,7 +20,7 @@ const template = `
 
 export class ProfileField extends Block<ProfileFieldProps> {
   constructor(props: ProfileFieldProps) {
-    super('label', props);
+    super(props, 'label');
   }
 
   render() {

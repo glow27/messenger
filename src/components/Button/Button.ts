@@ -10,7 +10,7 @@ const template = '{{label}}';
 
 export class Button extends Block<ButtonProps> {
   constructor(props: ButtonProps) {
-    super('button', props);
+    super(props, 'button');
   }
 
   init() {

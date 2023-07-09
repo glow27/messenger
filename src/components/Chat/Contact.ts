@@ -18,7 +18,7 @@ const template = `
 
 export class ChatContact extends Block<ChatContactProps> {
   constructor(props: ChatContactProps) {
-    super('div', props);
+    super(props);
   }
 
   init() {

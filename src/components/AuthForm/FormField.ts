@@ -21,7 +21,7 @@ const template = `
 
 export class FormField extends Block<FormFieldProps> {
   constructor(props: FormFieldProps) {
-    super('label', props);
+    super(props, 'label');
   }
 
   render() {

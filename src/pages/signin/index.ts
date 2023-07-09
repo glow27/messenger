@@ -2,9 +2,9 @@ import { FormField, FormFieldProps } from '../../components/AuthForm/FormField';
 import { loginPattern, passwordPattern } from '../../utils/regexPatterns';
 import { submitFormValues, validateField } from '../../utils/helpers';
 import { Button } from '../../components/Button/Button';
-import { Form } from '../../components/AuthForm/Form';
 import { Link } from '../../components/Link/Link';
 import {
+  routes,
   settingsIdandFormSelector,
   settingsIdAndInputSelector,
   settingsWithId,
@@ -40,10 +40,10 @@ const button = new Button({
 
 const link = new Link({
   linkText: 'Create account',
-  href: 'signup',
+  href: routes.signup,
 });
 
-export const signinForm = new Form({
+export const signinProps = {
   fields: singinFormFields.map((el) => new FormField(el)),
   events: {
     submit: submitFormValues,
@@ -52,4 +52,4 @@ export const signinForm = new Form({
   formTitle: 'SIGN IN',
   button,
   link,
-});
+}
