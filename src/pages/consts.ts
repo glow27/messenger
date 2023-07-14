@@ -11,6 +11,8 @@ export const settingsIdandFormSelector = {
 };
 
 export const routes = {
+  passwordError: '/profile/update-password/error',
+  updatePassword: '/profile/update-password',
   profile: '/profile',
   signin: '/signin',
   signup: '/signup',

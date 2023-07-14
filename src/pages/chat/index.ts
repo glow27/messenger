@@ -1,7 +1,9 @@
 import { ChatContact, ChatContactProps } from '../../components/Chat/Contact';
-import { submitFormValues } from '../../utils/helpers';
-import { settingsIdandFormSelector } from '../consts';
+import { routes, settingsIdandFormSelector, settingsWithId } from '../consts';
+import { SettingsBtn } from '../../components/Chat/SettingsBtn';
 import emptyAva from '../../../static/emptyAva.png';
+import { getFormValues } from '../../utils/helpers';
+import { appRouter } from '../../utils/router';
 import {
   ChatMessage,
   ChatMessageProps,
@@ -31,11 +33,27 @@ const contacts: ChatContactProps[] = [
   },
 ];
 
+const goToProfile = () => {
+  appRouter.go(routes.profile)
+};
+
+const settingsBtn = new SettingsBtn({
+  settings: settingsWithId,
+  events: {
+    click: goToProfile,
+  },
+});
+
 export const chatProps = {
   messages: messages.map((el) => new ChatMessage(el)),
   contacts: contacts.map((el) => new ChatContact(el)),
   settings: settingsIdandFormSelector,
+  settingsBtn,
   events: {
-    submit: submitFormValues,
+    submit: async (e: Event) => {
+      e.preventDefault()
+      const data = getFormValues(e)
+    
+    },
   },
 };

@@ -1,4 +1,3 @@
-import { Form } from '../components/AuthForm/Form';
 import { UnknownObject } from '../types/common';
 import { Block } from './block';
 import { render } from './renderDom';

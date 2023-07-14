@@ -23,7 +23,7 @@ export class Block<P = UnknownObject> {
   private _element: HTMLElement | null = null;
   private _meta: BlockMeta;
   private settings: Settings;
-  private children: ChildrenType;
+  protected children: ChildrenType;
   protected props: P;
   private _id: string;
 
@@ -154,7 +154,7 @@ export class Block<P = UnknownObject> {
     });
   }
 
-  protected componentDidMount(/*oldProps?: object*/) {
+  protected componentDidMount(/*oldProps?: object*/):void {
     return undefined;
   }
 
@@ -255,15 +255,12 @@ export class Block<P = UnknownObject> {
 
   private _makePropsProxy(props: P, current: this): P {
     const proxyProps = new Proxy(props as UnknownObject, {
-      get(target: UnknownObject, prop) {
-        if (typeof prop === 'string' && prop.indexOf('_') === 0) {
-          throw new Error('No access');
-        }
-
-        if (typeof prop === 'string') {
+      get(target: UnknownObject, prop: string) {
+       
+        
           const value = target[prop];
           return typeof value === 'function' ? value.bind(target) : value;
-        }
+        
       },
       deleteProperty() {
         throw new Error('No access');

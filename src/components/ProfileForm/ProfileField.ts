@@ -6,6 +6,7 @@ import styles from './profileForm.module.scss'
 interface ProfileFieldProps extends CommonProps {
   fieldName: string;
   fieldLabel: string;
+  required?: boolean;
   pattern?: string;
   type?: string;
 }
@@ -15,7 +16,7 @@ const template = `
   <input type="text"  name={{ fieldName }} class="${styles.profileField}" 
     {{#if type}} type={{ type }} {{/if}}
     {{#if pattern}} pattern={{ pattern }} {{/if}}
-    required
+    {{#if required}} required {{/if}}
   />`;
 
 export class ProfileField extends Block<ProfileFieldProps> {
@@ -24,8 +25,8 @@ export class ProfileField extends Block<ProfileFieldProps> {
   }
 
   render() {
-    const { fieldLabel, fieldName } = this.props;
+    const { fieldLabel, fieldName, pattern, type, required } = this.props;
 
-    return this.compile(template, { fieldLabel, fieldName });
+    return this.compile(template, { fieldLabel, fieldName, pattern, type, required });
   }
 }

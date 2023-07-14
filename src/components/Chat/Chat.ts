@@ -1,14 +1,14 @@
-import settingsIcon from '../../../static/set.png';
 import { CommonProps } from '../../types/common';
 import { ChatMessage } from './ChatMessage';
 import { Block } from '../../utils/block';
 import { ChatContact } from './Contact';
-
 import styles from './chat.module.scss';
+import { Link } from '../Link/Link';
 
 interface ChatProps extends CommonProps {
   messages: ChatMessage[]
   contacts: ChatContact[]
+  link: typeof Link
 }
 
 const template = `
@@ -23,7 +23,7 @@ const template = `
   </div>
   <div class="${styles.contacts}">
     <div class="${styles.settings}">
-      <a href="profile"><button><img src=${settingsIcon} /></button></a>
+      {{{ settingsBtn }}}
       <input type="text" name="search" placeholder="search" />
     </div>
     {{#each contacts}}
@@ -42,8 +42,8 @@ export class Chat extends Block<ChatProps> {
   }
 
   render() {
-    const {messages, contacts} = this.props
+    const { messages, contacts, link } = this.props
 
-    return this.compile(template, { messages, contacts });
+    return this.compile(template, { messages, contacts, link });
   }
 }

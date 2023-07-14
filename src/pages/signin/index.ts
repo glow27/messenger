@@ -1,6 +1,7 @@
 import { FormField, FormFieldProps } from '../../components/AuthForm/FormField';
 import { loginPattern, passwordPattern } from '../../utils/regexPatterns';
-import { submitFormValues, validateField } from '../../utils/helpers';
+import { getFormValues, validateField } from '../../utils/helpers';
+import AuthController from '../../controllers/AuthController';
 import { Button } from '../../components/Button/Button';
 import { Link } from '../../components/Link/Link';
 import {
@@ -46,7 +47,12 @@ const link = new Link({
 export const signinProps = {
   fields: singinFormFields.map((el) => new FormField(el)),
   events: {
-    submit: submitFormValues,
+    submit: async (e: Event) => {
+      e.preventDefault()
+      const data = getFormValues(e)
+      
+      AuthController.signin({data});
+    },
   },
   settings: settingsIdandFormSelector,
   formTitle: 'SIGN IN',

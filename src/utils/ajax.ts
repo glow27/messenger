@@ -10,12 +10,17 @@ type MethodsType = keyof typeof METHODS
 
 interface RequestOptions {
   timeout?: number,
-  data?: Record<string, unknown>,
-  method: MethodsType[number]
-  headers?: Record<string, string>
+  data?: Record<string, unknown> | FormData,
+  headers?: Record<string, string>,
+  isAvatar?: boolean
 }
 
-type HTTPMethod = (url: string, options?: RequestOptions) => Promise<unknown>
+interface OptionsWithMethod extends RequestOptions {
+  method: MethodsType[number]
+}
+
+type HTTPMethod<T = unknown> = (url: string, options?: RequestOptions) => Promise<T>
+type XHRSendBody = Document | XMLHttpRequestBodyInit | null | undefined
 
 function queryStringify(data: Record<string, unknown>) {
   const keys = Object.keys(data);
@@ -33,38 +38,45 @@ function queryStringify(data: Record<string, unknown>) {
 }
 
 export class HTTPTransport {
+  static API_URL = 'https://ya-praktikum.tech/api/v2';
+  protected endpoint: string;
+
+  constructor(endpoint: string) {
+    this.endpoint = `${HTTPTransport.API_URL}${endpoint}`;
+  }
+
   get: HTTPMethod = (url, options) => {
     return this.request(
-      url,
+      this.endpoint + url,
       { ...options, method: METHODS.GET }
     );
   };
 
   post: HTTPMethod  = (url, options) => {
     return this.request(
-      url,
+      this.endpoint + url,
       { ...options, method: METHODS.POST }
     );
   };
 
   put: HTTPMethod  = (url, options) => {
     return this.request(
-      url,
+      this.endpoint + url,
       { ...options, method: METHODS.PUT }
     );
   };
 
   delete: HTTPMethod  = (url, options) => {
     return this.request(
-      url,
+      this.endpoint + url,
       { ...options, method: METHODS.DELETE }
     );
   };
 
-  request = (url: string, options: RequestOptions) => {
-    const { method, data, headers, timeout = 5000 } = options;
+  request = (url: string, options: OptionsWithMethod) => {
+    const { method, data, headers, timeout = 5000, isAvatar } = options;
 
-    if (method === METHODS.GET && data) {
+    if (method === METHODS.GET && data && !(data instanceof FormData)) {
       url += queryStringify(data);
     }
 
@@ -72,13 +84,25 @@ export class HTTPTransport {
       const xhr = new XMLHttpRequest();
       xhr.open(method, url);
 
+      xhr.onreadystatechange = () => {
+
+        if (xhr.readyState === XMLHttpRequest.DONE) {
+       
+          resolve({data: xhr.response, status: xhr.status});
+      
+        }
+      };
+
       if (headers) {
         for (const key in headers) {
           xhr.setRequestHeader(key.toString(), headers[key].toString());
         }
       }
 
-      xhr.setRequestHeader('Content-Type', 'application/json; charset=utf-8');
+      if (!isAvatar) xhr.setRequestHeader('Content-Type', 'application/json');
+
+      xhr.withCredentials = true;
+      xhr.responseType = 'json';
 
       xhr.onload = function () {
         resolve(xhr);
@@ -90,7 +114,9 @@ export class HTTPTransport {
       xhr.onerror = reject;
       xhr.ontimeout = reject;
 
-      if (method === METHODS.GET || !data) {
+      if (isAvatar && data) {
+        xhr.send(data as unknown as XHRSendBody)
+      } else if (method === METHODS.GET || !data) {
         xhr.send();
       } else {
         xhr.send(JSON.stringify(data));

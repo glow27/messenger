@@ -8,7 +8,7 @@ interface AvatarInputProps extends CommonProps {
 }
 
 const template = `
-    <label class="${styles.avatarLabel}"><img class="${styles.avatarImg}" src=${emptyAva} width="120" height="120" />
+    <label class="${styles.avatarLabel}"><img class="${styles.avatarImg}" src="{{ src }}" width="120" height="120" />
     <input type="file" class="${styles.avatarInput}" name="avatar" accept="image/png, image/jpeg" /></label>`;
 
 export class AvatarInput extends Block<AvatarInputProps> {
@@ -22,6 +22,8 @@ export class AvatarInput extends Block<AvatarInputProps> {
   }
 
   render() {
-    return this.compile(template, { src: this.props.src });
+    const { src = emptyAva } = this.props;
+
+    return this.compile(template, { src });
   }
 }

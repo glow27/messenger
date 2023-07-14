@@ -1,5 +1,7 @@
 import { ProfileField } from '../../components/ProfileForm/ProfileField';
 import { AvatarInput } from '../../components/AvatarInput/AvatarInput';
+import AuthController from '../../controllers/AuthController';
+import UserController from '../../controllers/UserController';
 import { Button } from '../../components/Button/Button';
 import { Link } from '../../components/Link/Link';
 import {
@@ -9,16 +11,34 @@ import {
   settingsWithId,
 } from '../consts';
 import {
-  submitFormValues,
+  getFormValues,
   validateField,
-  validatePasswordMatch,
 } from '../../utils/helpers';
 import {
   emailPattern,
   loginPattern,
-  passwordPattern,
   phonePattern,
 } from '../../utils/regexPatterns';
+
+const uploadAvatar = (e: Event) => {
+  const input = e.target as HTMLInputElement;
+
+  if (input && input.files) {
+    const avatar = input.files[0] as File;
+
+    const form = new FormData();
+
+    form.append('avatar', avatar);
+
+    UserController.updateAvatar({ data: form, isAvatar: true });
+  }
+};
+
+const submitProfile = async (e: Event) => {
+  e.preventDefault();
+  const data = getFormValues(e);
+  UserController.updateProfile({data})
+}
 
 const profileFormFields = [
   {
@@ -34,6 +54,7 @@ const profileFormFields = [
       blur: validateField,
     },
     pattern: emailPattern,
+    required: true,
   },
   {
     fieldLabel: 'First name',
@@ -42,6 +63,7 @@ const profileFormFields = [
     events: {
       blur: validateField,
     },
+    required: true,
   },
   {
     fieldLabel: 'Second name',
@@ -50,6 +72,7 @@ const profileFormFields = [
     events: {
       blur: validateField,
     },
+    required: true,
   },
   {
     fieldLabel: 'Phone',
@@ -59,6 +82,7 @@ const profileFormFields = [
     events: {
       blur: validateField,
     },
+    required: true,
   },
   {
     fieldLabel: 'Login',
@@ -68,27 +92,16 @@ const profileFormFields = [
     events: {
       blur: validateField,
     },
-  },
-  {
-    fieldLabel: 'Password',
-    fieldName: 'password',
-    settings: settingsIdAndInputSelector,
-    pattern: passwordPattern,
-    events: {
-      blur: validateField,
-    },
-  },
-  {
-    fieldLabel: 'Repeat password',
-    fieldName: 'repeatPass',
-    settings: settingsIdAndInputSelector,
-    events: {
-      blur: validatePasswordMatch,
-    },
+    required: true,
   },
 ];
 
-const avatar = new AvatarInput({});
+const avatar = new AvatarInput({
+  settings: settingsIdAndInputSelector,
+  events: {
+    change: uploadAvatar,
+  },
+});
 
 const button = new Button({
   label: 'SAVE',
@@ -96,17 +109,36 @@ const button = new Button({
   settings: settingsWithId,
 });
 
+const logout = () => {
+  AuthController.logout();
+};
+
+const exitBtn = new Button({
+  label: 'log out',
+  settings: settingsWithId,
+  events: {
+    click: logout,
+  },
+});
+
 const link = new Link({
   linkText: 'Back to chat',
   href: routes.chat,
 });
 
+const passworUpdate = new Link({
+  linkText: 'update password',
+  href: routes.updatePassword,
+});
+
 export const profileProps = {
   fields: profileFormFields.map((el) => new ProfileField(el)),
   events: {
-    submit: submitFormValues,
+    submit: submitProfile,
   },
   settings: settingsIdandFormSelector,
+  passworUpdate,
+  exitBtn,
   avatar,
   button,
   link,

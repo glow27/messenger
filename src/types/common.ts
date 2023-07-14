@@ -1,4 +1,6 @@
-export type EventCallback = (...args: UnknownObject[]) => void;
+import { State } from '../utils/store';
+
+export type EventCallback = (...args: (UnknownObject | State)[]) => void;
 
 export type UnknownObject = { [key: string]: unknown };
 
@@ -28,4 +30,14 @@ export interface BlockMeta {
 
 export function hasSettingsWithId(obj: Settings) {
   return Boolean(obj.withId)
+}
+
+export interface RequestPayload<T> {
+  data: T;
+  isAvatar?: boolean
+}
+
+export interface ResponsePayload<T> {
+  data?: T
+  status: number
 }
