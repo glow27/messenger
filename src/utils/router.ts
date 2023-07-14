@@ -2,18 +2,26 @@ import { UnknownObject } from '../types/common';
 import { Block } from './block';
 import { render } from './renderDom';
 
+type Protection = 'protected' | 'not portected' | 'common'
+
 class RoutePage {
   private _block: Block | null = null;
   private _pathname;
   private _blockClass: typeof Block;
   protected _props;
+  private _protection: Protection = 'protected'
   
 
-  constructor(pathname: string, view: typeof Block, props: UnknownObject) {
+  constructor(pathname: string, view: typeof Block, props: UnknownObject, protection?: Protection) {
       this._pathname = pathname;
       this._blockClass = view;
       this._block = null;
       this._props = props;
+      if (protection) this._protection = protection
+  }
+
+  get protection() {
+    return this._protection;
   }
 
   navigate(pathname: string) {
@@ -35,9 +43,9 @@ class RoutePage {
 
   render() {
       if (!this._block) {
-          this._block = new this._blockClass(this._props);
-          render(this._props.rootQuery as string, this._block);
-          return;
+        this._block = new this._blockClass(this._props);
+        render(this._props.rootQuery as string, this._block);
+        return;
       }
 
   }
@@ -49,6 +57,9 @@ export class Router {
   private history = window.history;
   private routes: RoutePage[] = [];
   private _currentRoute: RoutePage | null = null;
+  private _protectedFallback = '/profile' 
+  private _unprotectedFallback = '/signin'
+  private _isProtected = false
 
   constructor(rootQuery: string) {
       if (Router.__instance) {
@@ -60,8 +71,12 @@ export class Router {
       Router.__instance = this;
   }
 
-  use(pathname: string, block: typeof Block, props: UnknownObject) {
-      const route = new RoutePage(pathname, block, {...props, rootQuery: this._rootQuery});
+  set isProtected(value: boolean) {
+    this._isProtected = value
+  }
+
+  use(pathname: string, block: typeof Block, props: UnknownObject, protection?: Protection) {
+      const route = new RoutePage(pathname, block, {...props, rootQuery: this._rootQuery}, protection);
 
       this.routes.push(route);
 
@@ -106,8 +121,37 @@ export class Router {
       this.history.forward();
   }
 
+  setProtectedFallback(pathname: string) {
+    this._protectedFallback = pathname
+
+    return this
+  }
+
+  setUnprotectedFallback(pathname: string) {
+    this._unprotectedFallback = pathname
+
+    return this
+  }
+
   getRoute(pathname: string) {
-      return this.routes.find(route => route.match(pathname));
+      
+      let route = this.routes.find(route => route.match(pathname));
+
+      if (pathname && !route) route = this.routes.find(route => route.match('/not-found'))
+
+      const routeProtection = route?.protection
+
+      if (!this._isProtected && routeProtection === 'protected') {
+        this.go(this._unprotectedFallback)
+        return
+      }
+
+      if (this._isProtected && routeProtection === 'not portected') {
+        this.go(this._protectedFallback)
+        return
+      }
+
+      return route
   }
 }
 

@@ -1,4 +1,5 @@
 import { AuthAPI, SignInData, SignUpData } from '../api/AuthApi';
+import { routes } from '../pages/consts';
 import { RequestPayload } from '../types/common';
 import { appRouter } from '../utils/router';
 import store from '../utils/store';
@@ -10,9 +11,13 @@ class AuthController {
     try {
       const res = await this.api.signin(data);
 
-      await this.fetchUser();
+      if (res.status === 200) {
+        await this.fetchUser();
 
-      appRouter.go('/profile');
+        appRouter.go(routes.chat);
+      }
+
+      
     } catch (error) {
       console.error(error);
     }
@@ -22,7 +27,12 @@ class AuthController {
     try {
       const res = await this.api.signup(data);
 
-      appRouter.go('/profile');
+      if (res.status === 200) {
+        await this.fetchUser();
+
+        appRouter.go(routes.chat);
+      }
+
     } catch (error) {
       console.error(error);
     }
@@ -31,6 +41,8 @@ class AuthController {
   async logout() {
     try {
       await this.api.logout();
+
+      appRouter.isProtected = false
 
       store.set('user', undefined);
 
@@ -47,7 +59,10 @@ class AuthController {
       if (!user) {
         const res = await this.api.getUser();
 
-        store.set('user', res.data);
+        if (res.status === 200) {
+          appRouter.isProtected = true
+          store.set('user', res.data);
+        }
       }
     } catch (error) {
       console.error(error);

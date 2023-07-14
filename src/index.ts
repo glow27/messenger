@@ -14,50 +14,18 @@ import { routes } from './pages/consts';
 import { Block } from './utils/block';
 
 window.addEventListener('DOMContentLoaded', async () => {
-  appRouter.use('/', Form as typeof Block, signinProps)
-  .use(routes.signin, Form as typeof Block, signinProps)
-  .use(routes.signup, Form as typeof Block, signupProps)
+  appRouter.use('/', Form as typeof Block, signinProps, 'not portected')
+  .use(routes.signin, Form as typeof Block, signinProps, 'not portected')
+  .use(routes.signup, Form as typeof Block, signupProps, 'not portected')
   .use(routes.profile, Profile as typeof Block, profileProps)
   .use(routes.chat, Chat as typeof Block, chatProps)
-  .use('', ErrorComponent as typeof Block, notFoundPageProps)
+  .use(routes.notFound, ErrorComponent as typeof Block, notFoundPageProps, 'common')
   .use(routes.updatePassword, Form as typeof Block, updatePasswordProps)
   .use(routes.passwordError, ErrorComponent as typeof Block, passwordErrorProps)
-  .start()
+  
+    await AuthController.fetchUser();
 
-  let isProtectedRoute = true;
-
-  // const res = await AuthController.fetchUser();
-
-  // if (res.status === 200) {
-  //   isProtectedRoute = false
-  // }
+    appRouter.start()
 
   
-
-    // switch (window.location.pathname) {
-    //   case '/':
-    //   case routes.signin: {
-    //     appRouter.go(routes.signin)
-
-    //     break;
-    //   }
-    //   case routes.chat: {
-    //     appRouter.go(routes.chat)
-
-    //     break;
-    //   }
-    //   case routes.signup: {
-    //     appRouter.go(routes.signup)
-
-    //     break;
-    //   }
-    //   case routes.profile: {
-    //     appRouter.go(routes.profile)
-
-    //     break;
-    //   }
-    //   default: {
-    //     appRouter.go('')
-    //   }
-    // }
 });
