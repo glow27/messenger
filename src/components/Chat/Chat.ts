@@ -1,10 +1,10 @@
-import { CommonProps } from "../../types/common";
-import { ChatsList } from "./ChatsList";
-import { ChatMessage } from "./ChatMessage";
-import { Block } from "../../utils/block";
-import styles from "./chat.module.scss";
-import { SettingsBtn } from "./SettingsBtn";
-import { Button } from "../Button/Button";
+import { CommonProps } from '../../types/common';
+import { ChatsList } from './ChatsList';
+import { ChatMessage } from './ChatMessage';
+import { Block } from '../../utils/block';
+import styles from './chat.module.scss';
+import { SettingsBtn } from './SettingsBtn';
+import { Button } from '../Button/Button';
 
 interface ChatProps extends CommonProps {
   messages: ChatMessage[];
@@ -53,7 +53,7 @@ export class Chat extends Block<ChatProps> {
 
   async init() {
     const currentElement = this.getContent();
-    currentElement?.classList.add("centeredContainer");
+    currentElement?.classList.add('centeredContainer');
   }
 
   render() {

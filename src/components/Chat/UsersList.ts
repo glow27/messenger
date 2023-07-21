@@ -5,7 +5,7 @@ import ChatController from '../../controllers/ChatController';
 import emptyAva from '../../../static/emptyAva.png';
 import { User } from '../../api/AuthApi';
 import { ChatUser } from './ChatUser';
-import styles from "./chat.module.scss";
+import styles from './chat.module.scss';
 
 type UsersLisProps = {
   users: User[],

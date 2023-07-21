@@ -1,17 +1,17 @@
-import { routes, settingsIdandFormSelector, settingsWithId } from "../consts";
-import { SettingsBtn } from "../../components/Chat/SettingsBtn";
-import { getFormValues } from "../../utils/helpers";
-import { appRouter } from "../../utils/router";
+import { routes, settingsIdandFormSelector, settingsWithId } from '../consts';
+import { SettingsBtn } from '../../components/Chat/SettingsBtn';
+import { getFormValues } from '../../utils/helpers';
+import { appRouter } from '../../utils/router';
 import {
   ChatMessage,
   ChatMessageProps,
-} from "../../components/Chat/ChatMessage";
-import { Button } from "../../components/Button/Button";
-import { ChatsList } from "../../components/Chat/ChatsList";
-import ChatController from "../../controllers/ChatController";
-import { UsersList } from "../../components/Chat/UsersList";
+} from '../../components/Chat/ChatMessage';
+import { Button } from '../../components/Button/Button';
+import { ChatsList } from '../../components/Chat/ChatsList';
+import ChatController from '../../controllers/ChatController';
+import { UsersList } from '../../components/Chat/UsersList';
 
-const messages: ChatMessageProps[] = [{ text: "111" },{ text: "hello111" }, { text: "bye22" } ,{ text: "hello111" }, { text: "bye22" }, { text: "hello111" }, { text: "bye22" },{ text: "hello111" }, { text: "bye22" },{ text: "hello111" }, { text: "bye22" },{ text: "hello111" }, { text: "88888" }];
+const messages: ChatMessageProps[] = [{ text: '111' },{ text: 'hello111' }, { text: 'bye22' } ,{ text: 'hello111' }, { text: 'bye22' }, { text: 'hello111' }, { text: 'bye22' },{ text: 'hello111' }, { text: 'bye22' },{ text: 'hello111' }, { text: 'bye22' },{ text: 'hello111' }, { text: '88888' }];
 
 const goToProfile = () => {
   appRouter.go(routes.profile);
@@ -50,7 +50,7 @@ const settingsBtn = new SettingsBtn({
 });
 
 const addChatBtn = new Button({
-  label: "add chat",
+  label: 'add chat',
   settings: settingsWithId,
   events: {
     click: addChat,
@@ -58,7 +58,7 @@ const addChatBtn = new Button({
 });
 
 const addUserBtn = new Button({
-  label: "add user",
+  label: 'add user',
   settings: settingsWithId,
   events: {
     click: addUser,

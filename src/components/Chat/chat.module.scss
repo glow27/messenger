@@ -3,8 +3,7 @@
 .chat {
   width: 75%;
   display: flex;
-  flex-direction: column;
-  flex-wrap: nowrap;
+  flex-flow: column nowrap;
 
   @include chat;
 }
@@ -52,7 +51,6 @@
   flex-direction: column;
   justify-content: space-between;
   border-right: $container-border;
-  display: flex;
   box-sizing: border-box;
 }
 
@@ -72,7 +70,6 @@
   padding: 24px 32px 32px;
   box-sizing: border-box;
   border-top: $container-border;
-  display: flex;
 
   & textarea {
     @include border;
@@ -107,12 +104,12 @@
 
 .settings {
   @include centeredFlex;
+  
   padding-bottom: 8px;
-
+  height: -webkit-fit-content;
+  height: -moz-fit-content;
   height: fit-content;
   border-bottom: $container-border;
-  display: flex;
-
   display: flex;
   justify-content: space-evenly;
 

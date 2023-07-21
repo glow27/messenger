@@ -1,4 +1,4 @@
-import { AddChatUser, ChatAPI, CreateChat } from '../api/ChatApi';
+import { ChatAPI, CreateChat } from '../api/ChatApi';
 
 import { RequestPayload } from '../types/common';
 
