@@ -11,7 +11,6 @@ export class SettingsBtn extends Block<CommonProps> {
 
   init() {
     const currentElement = this.getContent();
-
     if (currentElement) {
       currentElement.setAttribute('type', 'button');
     }

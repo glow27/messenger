@@ -8,6 +8,7 @@ import {
   UnknownObject,
   hasSettingsWithId,
 } from '../types/common';
+import { State } from './store';
 
 type ChildrenType = Record<string, Block | Block[]>;
 
@@ -163,16 +164,16 @@ export class Block<P = UnknownObject> {
   }
 
   private _componentDidUpdate(
-    oldProps: UnknownObject,
-    newProps: UnknownObject
+    oldProps: UnknownObject | State,
+    newProps: UnknownObject | State
   ) {
     const response = this.componentDidUpdate(oldProps, newProps);
     if (response) this.eventBus().emit(Block.EVENTS.FLOW_RENDER);
   }
 
   protected componentDidUpdate(
-    oldProps: UnknownObject,
-    newProps: UnknownObject
+    oldProps: UnknownObject | State,
+    newProps: UnknownObject | State
   ) {
     if (oldProps === newProps) return true
     return true;

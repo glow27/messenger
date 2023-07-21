@@ -1,40 +1,45 @@
-import { ChatContact, ChatContactProps } from '../../components/Chat/Contact';
-import { routes, settingsIdandFormSelector, settingsWithId } from '../consts';
-import { SettingsBtn } from '../../components/Chat/SettingsBtn';
-import emptyAva from '../../../static/emptyAva.png';
-import { getFormValues } from '../../utils/helpers';
-import { appRouter } from '../../utils/router';
+import { routes, settingsIdandFormSelector, settingsWithId } from "../consts";
+import { SettingsBtn } from "../../components/Chat/SettingsBtn";
+import { getFormValues } from "../../utils/helpers";
+import { appRouter } from "../../utils/router";
 import {
   ChatMessage,
   ChatMessageProps,
-} from '../../components/Chat/ChatMessage';
+} from "../../components/Chat/ChatMessage";
+import { Button } from "../../components/Button/Button";
+import { ChatsList } from "../../components/Chat/ChatsList";
+import ChatController from "../../controllers/ChatController";
+import { UsersList } from "../../components/Chat/UsersList";
 
-const messages: ChatMessageProps[] = [{ text: 'hello111' }, { text: 'bye22' }];
-
-const contacts: ChatContactProps[] = [
-  {
-    imgSrc: emptyAva,
-    name: 'Vasya',
-    lastMessage: 'asfdsadfa sadfadsfa',
-    date: '11.11.88',
-  },
-  {
-    imgSrc: emptyAva,
-    name: 'Pety Petin',
-    lastMessage: 'asfdsadfa sadfadsfa',
-    date: '11.11.88',
-  },
-  {
-    imgSrc: emptyAva,
-    name: 'Adfas FFSASSD',
-    lastMessage:
-      'asfdsadfa sadfadsfa safdasdfasdf sadfsadf asd fdsfsdfddddsfads',
-    date: '11.11.88',
-  },
-];
+const messages: ChatMessageProps[] = [{ text: "111" },{ text: "hello111" }, { text: "bye22" } ,{ text: "hello111" }, { text: "bye22" }, { text: "hello111" }, { text: "bye22" },{ text: "hello111" }, { text: "bye22" },{ text: "hello111" }, { text: "bye22" },{ text: "hello111" }, { text: "88888" }];
 
 const goToProfile = () => {
-  appRouter.go(routes.profile)
+  appRouter.go(routes.profile);
+};
+
+const addChat = async () => {
+  const input = document.querySelector(
+    'input[name="title"]'
+  ) as HTMLInputElement;
+
+  if (!input.value) {
+    return;
+  } else {
+    const data = { title: input.value };
+    ChatController.createChat({ data });
+  }
+};
+
+const addUser = async () => {
+  const input = document.querySelector(
+    'input[name="userId"]'
+  ) as HTMLInputElement;
+
+  if (!input.value) {
+    return;
+  } else {
+    ChatController.addChatUser(+input.value);
+  }
 };
 
 const settingsBtn = new SettingsBtn({
@@ -44,16 +49,42 @@ const settingsBtn = new SettingsBtn({
   },
 });
 
+const addChatBtn = new Button({
+  label: "add chat",
+  settings: settingsWithId,
+  events: {
+    click: addChat,
+  },
+});
+
+const addUserBtn = new Button({
+  label: "add user",
+  settings: settingsWithId,
+  events: {
+    click: addUser,
+  },
+});
+
+const chatsList = new ChatsList({
+  settings: settingsWithId,
+});
+
+const usersList = new UsersList({
+  settings: settingsWithId,
+});
+
 export const chatProps = {
   messages: messages.map((el) => new ChatMessage(el)),
-  contacts: contacts.map((el) => new ChatContact(el)),
   settings: settingsIdandFormSelector,
   settingsBtn,
+  usersList,
+  chatsList,
+  addChatBtn,
+  addUserBtn,
   events: {
     submit: async (e: Event) => {
-      e.preventDefault()
-      const data = getFormValues(e)
-    
+      e.preventDefault();
+      const data = getFormValues(e);
     },
   },
 };

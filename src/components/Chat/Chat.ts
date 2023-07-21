@@ -1,34 +1,49 @@
-import { CommonProps } from '../../types/common';
-import { ChatMessage } from './ChatMessage';
-import { Block } from '../../utils/block';
-import { ChatContact } from './Contact';
-import styles from './chat.module.scss';
-import { Link } from '../Link/Link';
+import { CommonProps } from "../../types/common";
+import { ChatsList } from "./ChatsList";
+import { ChatMessage } from "./ChatMessage";
+import { Block } from "../../utils/block";
+import styles from "./chat.module.scss";
+import { SettingsBtn } from "./SettingsBtn";
+import { Button } from "../Button/Button";
 
 interface ChatProps extends CommonProps {
-  messages: ChatMessage[]
-  contacts: ChatContact[]
-  link: typeof Link
+  messages: ChatMessage[];
+  settingsBtn: SettingsBtn;
+  addBtn: Button;
+  chatsList?: typeof ChatsList
 }
 
 const template = `
   <div class="${styles.chat}">
-    {{#each messages}}
-      {{{ this }}}
-    {{/each}}
+    <div class="${styles.usersContainer}">
+      <div class="${styles.addUser}">
+        <input name="userId" placeholder="user id" type="number"></input>
+        {{{ addUserBtn }}}
+      </div>
+      {{{ usersList }}}
+    </div>
+
+    <div class="${styles.messages}">
+      {{#each messages}}
+        {{{ this }}}
+      {{/each}}
+    </div>
+
     <form class="${styles.messageForm}">
       <textarea name="message" required ></textarea>
       <button>send</button>
     </form>
   </div>
   <div class="${styles.contacts}">
+    <div class="${styles.addChat}">
+      {{{ addChatBtn }}}
+      <input name="title" placeholder="chat title"></input>
+    </div>
     <div class="${styles.settings}">
       {{{ settingsBtn }}}
-      <input type="text" name="search" placeholder="search" />
     </div>
-    {{#each contacts}}
-      {{{ this }}}
-    {{/each}}
+    
+    {{{ chatsList }}}
   </div>`;
 
 export class Chat extends Block<ChatProps> {
@@ -36,14 +51,14 @@ export class Chat extends Block<ChatProps> {
     super(props);
   }
 
-  init() {
+  async init() {
     const currentElement = this.getContent();
-    currentElement?.classList.add('centeredContainer');
+    currentElement?.classList.add("centeredContainer");
   }
 
   render() {
-    const { messages, contacts, link } = this.props
+    const { messages, settingsBtn, addBtn, chatsList } = this.props;
 
-    return this.compile(template, { messages, contacts, link });
+    return this.compile(template, { messages, settingsBtn, addBtn, chatsList });
   }
 }

@@ -32,7 +32,7 @@ export class UserAPI extends API {
   }
 
   updatePassword(data: RequestPayload<UpdatePasswordData>) {
-    return this.http.put('/password', data);
+    return this.http.put<UpdatePasswordData>('/password', data);
   }
 
 }

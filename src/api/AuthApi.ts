@@ -23,6 +23,7 @@ export type User = {
   email: string;
   phone: string;
   avatar: string;
+  id: number
 };
 
 export class AuthAPI extends API {
@@ -30,19 +31,19 @@ export class AuthAPI extends API {
     super('/auth');
   }
 
-  signin(data: RequestPayload<SignInData>): Promise<unknown> {
+  signin(data: RequestPayload<SignInData>) {
     return this.http.post('/signin', data);
   }
 
-  signup(data: RequestPayload<SignUpData>): Promise<unknown> {
+  signup(data: RequestPayload<SignUpData>) {
     return this.http.post('/signup', data);
   }
 
-  logout(): Promise<unknown> {
+  logout() {
     return this.http.post('/logout');
   }
 
-  getUser(): Promise<unknown> {
+  getUser() {
     return this.http.get('/user');
   }
 }

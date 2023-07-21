@@ -1,4 +1,5 @@
 import { User } from '../api/AuthApi';
+import { Chat } from '../api/ChatApi';
 import { UnknownObject } from '../types/common';
 import { Block } from './block';
 import { EventBus } from './eventBus';
@@ -6,7 +7,12 @@ import { set } from './helpers';
 
 export interface State {
   user?: User;
+  chats?: Chat[]
+  currentChatId?: number
+  chatUsers?: User[]
 }
+
+type StorePaths = keyof State
 
 const storageEvent = {
   updateState: 'update',
@@ -19,7 +25,7 @@ class Store extends EventBus {
     return this.state;
   }
 
-  set(path: string, value: unknown) {
+  set(path: StorePaths, value: unknown) {
     set(this.state, path, value);
 
     this.emit(storageEvent.updateState, this.state);

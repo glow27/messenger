@@ -13,7 +13,7 @@ export interface EventsProps {
   [key: string]: (e: Event) => void
 }
 
-export interface CommonProps {
+export type CommonProps = {
   settings?: Settings,
   events?: EventsProps
 }

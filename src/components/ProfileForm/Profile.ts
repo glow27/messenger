@@ -44,7 +44,6 @@ class BaseProfile extends Block<ProfileProps> {
   }
 
   render() {
-
     const { passwordUpdate, exitBtn, avatar, button, fields, link, user } = this.props
 
     if (user && user.avatar && !Array.isArray(this.children.avatar)) this.children.avatar.setProps({src: `https://ya-praktikum.tech/api/v2/resources${user.avatar}`})

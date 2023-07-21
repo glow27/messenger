@@ -12,6 +12,7 @@ $base-color: #bd80cc;
 $dark-color: #5c1e6b;
 $border-dark: rgba($base-color, 0.88);
 $invalid-color: #cf466f;
+$container-border: 2px solid $border-dark;
 
 @mixin centeredFlex {
   display: flex;

@@ -19,8 +19,12 @@ interface OptionsWithMethod extends RequestOptions {
   method: MethodsType[number]
 }
 
-type HTTPMethod<T = unknown> = (url: string, options?: RequestOptions) => Promise<T>
 type XHRSendBody = Document | XMLHttpRequestBodyInit | null | undefined
+
+type ResponsePayload<T> = {
+  status: number,
+  data: T
+}
 
 function queryStringify(data: Record<string, unknown>) {
   const keys = Object.keys(data);
@@ -45,53 +49,44 @@ export class HTTPTransport {
     this.endpoint = `${HTTPTransport.API_URL}${endpoint}`;
   }
 
-  get: HTTPMethod = (url, options) => {
-    return this.request(
+  get<T>(url: string, options?: RequestOptions) {
+    return this.request<T>(
       this.endpoint + url,
       { ...options, method: METHODS.GET }
     );
-  };
+  }
 
-  post: HTTPMethod  = (url, options) => {
-    return this.request(
+  post<T>(url: string, options?: RequestOptions) {
+    return this.request<T>(
       this.endpoint + url,
       { ...options, method: METHODS.POST }
     );
-  };
+  }
 
-  put: HTTPMethod  = (url, options) => {
-    return this.request(
+  put<T>(url: string, options?: RequestOptions){
+    return this.request<T>(
       this.endpoint + url,
       { ...options, method: METHODS.PUT }
     );
-  };
+  }
 
-  delete: HTTPMethod  = (url, options) => {
-    return this.request(
+  delete<T>(url: string, options?: RequestOptions) {
+    return this.request<T>(
       this.endpoint + url,
       { ...options, method: METHODS.DELETE }
     );
-  };
+  }
 
-  request = (url: string, options: OptionsWithMethod) => {
+  request<T = unknown>(url: string, options: OptionsWithMethod) {
     const { method, data, headers, timeout = 5000, isAvatar } = options;
 
     if (method === METHODS.GET && data && !(data instanceof FormData)) {
       url += queryStringify(data);
     }
 
-    return new Promise((resolve, reject) => {
+    return new Promise<ResponsePayload<T>>((resolve, reject) => {
       const xhr = new XMLHttpRequest();
       xhr.open(method, url);
-
-      xhr.onreadystatechange = () => {
-
-        if (xhr.readyState === XMLHttpRequest.DONE) {
-       
-          resolve({data: xhr.response, status: xhr.status});
-      
-        }
-      };
 
       if (headers) {
         for (const key in headers) {
@@ -105,7 +100,12 @@ export class HTTPTransport {
       xhr.responseType = 'json';
 
       xhr.onload = function () {
-        resolve(xhr);
+        const status = xhr.status || 0
+        if (status >= 200 && status < 300) {
+          resolve({data: xhr.response, status: xhr.status});
+        } else {
+          reject({data: xhr.response, status: xhr.status})
+        }  
       };
 
       xhr.timeout = timeout;
@@ -122,5 +122,5 @@ export class HTTPTransport {
         xhr.send(JSON.stringify(data));
       }
     });
-  };
+  }
 }

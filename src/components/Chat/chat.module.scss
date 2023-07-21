@@ -4,7 +4,7 @@
   width: 75%;
   display: flex;
   flex-direction: column;
-  justify-content: end;
+  flex-wrap: nowrap;
 
   @include chat;
 }
@@ -15,14 +15,64 @@
   @include chat;
 }
 
+.usersContainer {
+  height: 72px;
+  flex-shrink: 0;
+  border-bottom: $container-border;
+  display: flex;
+}
+
+.usersList {
+  overflow-x: auto;
+}
+
+.chatUser {
+  padding: 4px;
+  height: 100%;
+  box-sizing: border-box;
+  position: relative;
+  width: 64px;
+  border-right: 1px solid $border-dark;
+
+  & img {
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+    position: absolute;
+    bottom: 4px;
+    right: 4px;
+   }
+}
+
+.addUser {
+  height: 100%;
+  width: 160px;
+  padding: 8px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border-right: $container-border;
+  display: flex;
+  box-sizing: border-box;
+}
+
+.messages {
+  flex: 1;
+  display: flex;
+  flex-direction: column-reverse;
+  overflow: auto;
+}
+
 .messageForm {
+  flex-shrink: 0;
   height: 160px;
   width: 100%;
   display: flex;
   justify-content: space-between;
   padding: 24px 32px 32px;
   box-sizing: border-box;
-  border-top: 2px solid $border-dark;
+  border-top: $container-border;
+  display: flex;
 
   & textarea {
     @include border;
@@ -57,17 +107,14 @@
 
 .settings {
   @include centeredFlex;
+  padding-bottom: 8px;
 
-  height: 64px;
-  border-bottom: 2px solid $border-dark;
+  height: fit-content;
+  border-bottom: $container-border;
+  display: flex;
 
-  & input {
-    @include field;
-    @include border;
-
-    flex-grow: 1;
-    margin: 0 16px;
-  }
+  display: flex;
+  justify-content: space-evenly;
 
   & button {
     margin: 0 16px;
@@ -78,6 +125,12 @@
   }
 }
 
+.addChat {
+  @include centeredFlex;
+
+  margin: 8px;
+}
+
 .chatContact {
   display: flex;
   align-items: center;
@@ -85,11 +138,27 @@
   border-bottom: 1px solid $border-dark;
   box-sizing: border-box;
   height: 80px;
+  position: relative;
+  cursor: pointer;
 
    & img {
     height: 56px;
     width: 56px;
-    border-radius: 50%;
+   
+   }
+
+   & .count {
+     position: absolute;
+     height: 12px;
+     width: 12px;
+     padding: 2px;
+     border-radius: 50%;
+     background-color: red;
+     color: white;
+     top: 12px;
+     left: 12px;
+     font-size: 12px;
+     text-align: center;
    }
 }
 
