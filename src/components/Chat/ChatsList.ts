@@ -31,7 +31,7 @@ class BaseList extends Block<ChatSettingsProps> {
     ChatController.getChats()
   }
 
-  protected componentDidUpdate(oldProps: UnknownObject, newProps: ChatSettingsProps): boolean {
+  protected componentDidUpdate(_oldProps: UnknownObject, newProps: ChatSettingsProps): boolean {
 
      if (!newProps?.chats) return false
   

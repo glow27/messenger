@@ -16,6 +16,8 @@ class MessagesController {
     } catch (error) {
       console.error(error);
     }
+
+    return false
   }
 
   async sendMessage(message: string) {
