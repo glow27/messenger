@@ -51,7 +51,7 @@ class BaseProfile extends Block<ProfileProps> {
       for (const key in user) {
         if (key === 'avatar' && user[key]) continue
         const element: HTMLInputElement | null = document.querySelector(`input[name="${key}"]`)
-        if (element) element.value = user[key as UserKeys]
+        if (element) element.value = user[key as UserKeys] as string
       }
 
     return this.compile(template, {

@@ -23,9 +23,6 @@ export type Chat = {
     }
 };
 
-type Token = [{token: string}]
-
-
 export class ChatAPI extends API {
   constructor() {
     super('/chats');
@@ -50,10 +47,5 @@ export class ChatAPI extends API {
   deleteChatUser(data: RequestPayload<AddChatUser>) {
     return this.http.delete('/users', data);
   }
-
-  createToken(id: number) {
-    return this.http.post<Token>(`/token/${id}`);
-  }
-
 
 }

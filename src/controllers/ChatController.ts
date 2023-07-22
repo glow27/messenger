@@ -24,13 +24,12 @@ class ChatController {
     try {
       const res = await this.api.getChats();
 
-      if (res.status === 200) {
+      if (res.status === 200 && res.data.length) {
         store.set('chats', res.data);
         store.set('currentChatId', res.data[0].id)
         this.getChatUsers(res.data[0].id)
       }
 
-    
     } catch (error) {
       console.error(error);
     }
@@ -43,7 +42,6 @@ class ChatController {
       if (res.status === 200) {
         store.set('chatUsers', res.data);
       }
-
     
     } catch (error) {
       console.error(error);
@@ -67,7 +65,6 @@ class ChatController {
         }
       }
       
-
     } catch (error) {
       console.error(error);
     }
@@ -90,7 +87,6 @@ class ChatController {
           store.set('chatUsers', curUsers?.filter(el => el.id !== id))
         }
       }
-      
 
     } catch (error) {
       console.error(error);

@@ -4,11 +4,13 @@ import { CommonProps } from '../../types/common';
 
 export type ChatUserProps = {
   imgSrc: string;
+  name: string;
 } & CommonProps
 
 const template = `
+  <div><span>{{ name }}</span><button>x</button></div>
   <img src="{{ imgSrc }}"  alt="contactAva" />
-  <button>x</button>`;
+  `;
 
 export class ChatUser extends Block<ChatUserProps> {
   constructor(props: ChatUserProps) {
@@ -21,11 +23,9 @@ export class ChatUser extends Block<ChatUserProps> {
   }
 
   render() {
-
-   
-
     return this.compile(template, { 
-      imgSrc: this.props.imgSrc
+      imgSrc: this.props.imgSrc,
+      name: this.props.name
      })
   }
 }

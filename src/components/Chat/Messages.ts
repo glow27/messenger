@@ -2,7 +2,6 @@ import { CommonProps } from '../../types/common';
 import { Block } from '../../utils/block';
 import { State, withStore } from '../../utils/store';
 import styles from './chat.module.scss';
-import MessagesController from '../../controllers/MessagesController';
 import { ChatMessage } from './ChatMessage';
 import { Message } from '../../api/MessagesApi';
 
@@ -29,11 +28,7 @@ class BaseList extends Block<MessagesListProps> {
   }
 
   protected componentDidUpdate(oldProps: MessagesListProps, newProps: MessagesListProps): boolean {
-
- 
       if (oldProps.messages?.length === newProps.messages?.length && oldProps.chatId === newProps.chatId) return false
-
-      if (oldProps.chatId !== newProps.chatId && newProps.userId) MessagesController.setCurrentChat()
 
       this.children.messages = newProps.messages.map(el => {
         const isCommon = el.content === 'Chat connected!'

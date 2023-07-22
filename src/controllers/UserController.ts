@@ -25,7 +25,6 @@ class UserController {
       if (res.data) {
         store.set('user', res.data);
       }
-
     
     } catch (error) {
       console.error(error);

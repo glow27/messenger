@@ -31,12 +31,12 @@ const template = `
     </form>
   </div>
   <div class="${styles.contacts}">
-    <div class="${styles.addChat}">
-      {{{ addChatBtn }}}
-      <input name="title" placeholder="chat title"></input>
-    </div>
     <div class="${styles.settings}">
-      {{{ settingsBtn }}}
+    <div class="${styles.addChat}">
+      <input name="title" placeholder="chat title"></input>
+      {{{ addChatBtn }}}
+    </div>
+    {{{ settingsBtn }}}
     </div>
     
     {{{ chatsList }}}

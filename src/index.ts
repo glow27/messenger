@@ -23,9 +23,8 @@ window.addEventListener('DOMContentLoaded', async () => {
   .use(routes.updatePassword, Form as typeof Block, updatePasswordProps)
   .use(routes.passwordError, ErrorComponent as typeof Block, passwordErrorProps)
   
-    await AuthController.fetchUser();
+  await AuthController.fetchUser();
 
-    appRouter.start()
+  appRouter.start()
 
-  
 });

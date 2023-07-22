@@ -17,7 +17,6 @@ class AuthController {
         appRouter.go(routes.chat);
       }
 
-      
     } catch (error) {
       console.error(error);
     }

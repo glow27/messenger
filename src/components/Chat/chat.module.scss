@@ -31,16 +31,24 @@
   height: 100%;
   box-sizing: border-box;
   position: relative;
-  width: 64px;
+  width: 100px;
   border-right: 1px solid $border-dark;
+  font-size: 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 
   & img {
     height: 40px;
     width: 40px;
     border-radius: 50%;
-    position: absolute;
-    bottom: 4px;
-    right: 4px;
+   }
+
+   & div {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+     
    }
 }
 
@@ -117,18 +125,14 @@
 }
 
 .settings {
-  @include centeredFlex;
-  
-  padding-bottom: 8px;
-  height: -webkit-fit-content;
-  height: -moz-fit-content;
-  height: fit-content;
-  border-bottom: $container-border;
+  height: 72px;
   display: flex;
+  border-bottom: $container-border;
+  align-items: center;
   justify-content: space-evenly;
 
   & button {
-    margin: 0 16px;
+    height: fit-content;
   }
 
   & img {
@@ -137,9 +141,12 @@
 }
 
 .addChat {
-  @include centeredFlex;
-
-  margin: 8px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  height: 100%;
+  width: 80%;
+ 
 }
 
 .chatContact {

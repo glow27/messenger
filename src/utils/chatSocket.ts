@@ -58,7 +58,7 @@ export class ChatSocket {
         });
 
         this.setPing()
-        
+
         return true
       }
     } catch (error) {
@@ -86,7 +86,7 @@ export class ChatSocket {
 
   public closeChat() {
     if (this.chat) {
-      if (this._pingInterval)clearInterval(this._pingInterval)
+      if (this._pingInterval) clearInterval(this._pingInterval)
       this._pingInterval = null
       this.chat.close();
     }
@@ -95,7 +95,7 @@ export class ChatSocket {
   private setPing() {
     this._pingInterval = setInterval(() => {
         this.chat?.send(JSON.stringify({type: 'ping'}))
-      }, 35000
+      }, 50000
     )
   }
 }

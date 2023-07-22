@@ -6,6 +6,7 @@ import emptyAva from '../../../static/emptyAva.png';
 import { User } from '../../api/AuthApi';
 import { ChatUser } from './ChatUser';
 import styles from './chat.module.scss';
+import MessagesController from '../../controllers/MessagesController';
 
 type UsersLisProps = {
   users: User[],
@@ -37,9 +38,12 @@ class BaseList extends Block<UsersLisProps> {
   protected componentDidUpdate({users, chatId}: UsersLisProps, {users: newUsers, chatId: newChatId}: UsersLisProps): boolean {
       if (newUsers && newChatId && ( users?.length !== newUsers.length || chatId !== newChatId)) {
   
-      const users = newUsers.map(({id, avatar }) => {
+      MessagesController.setCurrentChat()
+
+      const users = newUsers.map(({id, avatar, first_name }) => {
       
         return new ChatUser({
+          name: first_name,
           imgSrc: avatar ? `https://ya-praktikum.tech/api/v2/resources${avatar}` : emptyAva,
           settings: {
             selectorForEvent: 'button',

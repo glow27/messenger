@@ -43,17 +43,18 @@ class MessagesController {
     }
 
     if (message.type === 'pong' || message.type === 'user connected') return
-   
-
       
-      store.set('messages', [message, ...curMessages])
+    store.set('messages', [message, ...curMessages])
       
- 
   }
 
   async setCurrentChat() {
     try {
-      const {user, currentChatId } = store.getState()
+      const { user, currentChatId, currentChat, chatUsers } = store.getState()
+
+      if (currentChat) currentChat.closeChat()
+
+      if (!chatUsers || chatUsers.length < 2) return
 
       if (currentChatId && user?.id){
          const newChat = new ChatSocket(currentChatId, user.id)
@@ -68,8 +69,6 @@ class MessagesController {
       console.error(error);
     }
   }
-
-
 
 }
 
