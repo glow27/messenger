@@ -2,16 +2,12 @@ import { routes, settingsIdandFormSelector, settingsWithId } from '../consts';
 import { SettingsBtn } from '../../components/Chat/SettingsBtn';
 import { getFormValues } from '../../utils/helpers';
 import { appRouter } from '../../utils/router';
-import {
-  ChatMessage,
-  ChatMessageProps,
-} from '../../components/Chat/ChatMessage';
 import { Button } from '../../components/Button/Button';
 import { ChatsList } from '../../components/Chat/ChatsList';
 import ChatController from '../../controllers/ChatController';
 import { UsersList } from '../../components/Chat/UsersList';
-
-const messages: ChatMessageProps[] = [{ text: '111' },{ text: 'hello111' }, { text: 'bye22' } ,{ text: 'hello111' }, { text: 'bye22' }, { text: 'hello111' }, { text: 'bye22' },{ text: 'hello111' }, { text: 'bye22' },{ text: 'hello111' }, { text: 'bye22' },{ text: 'hello111' }, { text: '88888' }];
+import MessagesController from '../../controllers/MessagesController';
+import { MessagesList } from '../../components/Chat/Messages';
 
 const goToProfile = () => {
   appRouter.go(routes.profile);
@@ -73,18 +69,27 @@ const usersList = new UsersList({
   settings: settingsWithId,
 });
 
+const sendMessage = async (e: Event) => {
+  e.preventDefault();
+  const data = getFormValues(e); 
+  
+  const form = e.target as HTMLFormElement
+  form?.reset()
+
+  await MessagesController.sendMessage(data.message)
+};
+
+const messagesList = new MessagesList({settings: settingsWithId,})
+
 export const chatProps = {
-  messages: messages.map((el) => new ChatMessage(el)),
   settings: settingsIdandFormSelector,
   settingsBtn,
+  messagesList,
   usersList,
   chatsList,
   addChatBtn,
   addUserBtn,
   events: {
-    submit: async (e: Event) => {
-      e.preventDefault();
-      const data = getFormValues(e);
-    },
+    submit: sendMessage
   },
 };

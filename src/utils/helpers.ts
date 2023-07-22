@@ -13,7 +13,7 @@ const errorMessages = {
 export function getFormValues(e: Event) {
   const formData = new FormData(e.target as HTMLFormElement);
   const data = Object.fromEntries(formData as unknown as Iterable<unknown[]>);
-
+  
   return data
 }
 

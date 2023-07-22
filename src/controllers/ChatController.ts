@@ -97,19 +97,6 @@ class ChatController {
     }
   }
 
-  async createToken(id: string) {
-    try {
-      const res = await this.api.createToken(id);
-
-      if (res.status === 200) {
-        return res.data[0].token
-      }
-    
-    } catch (error) {
-      console.error(error);
-    }
-  }
-
 }
 
 export default new ChatController();

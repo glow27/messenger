@@ -1,7 +1,9 @@
 import { User } from '../api/AuthApi';
 import { Chat } from '../api/ChatApi';
+import { Message } from '../api/MessagesApi';
 import { UnknownObject } from '../types/common';
 import { Block } from './block';
+import { ChatSocket } from './chatSocket';
 import { EventBus } from './eventBus';
 import { set } from './helpers';
 
@@ -10,6 +12,8 @@ export interface State {
   chats?: Chat[]
   currentChatId?: number
   chatUsers?: User[]
+  messages: Message[]
+  currentChat?: ChatSocket
 }
 
 type StorePaths = keyof State
@@ -19,7 +23,9 @@ const storageEvent = {
 };
 
 class Store extends EventBus {
-  private state: State = {};
+  private state: State = {
+    messages: []
+  };
 
   getState() {
     return this.state;

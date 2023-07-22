@@ -51,7 +51,7 @@ export class ChatAPI extends API {
     return this.http.delete('/users', data);
   }
 
-  createToken(id: string) {
+  createToken(id: number) {
     return this.http.post<Token>(`/token/${id}`);
   }
 

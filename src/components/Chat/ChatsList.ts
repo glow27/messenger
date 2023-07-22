@@ -32,13 +32,15 @@ class BaseList extends Block<ChatSettingsProps> {
   }
 
   protected componentDidUpdate(oldProps: UnknownObject, newProps: ChatSettingsProps): boolean {
+
+     if (!newProps?.chats) return false
   
       const chats = newProps.chats.map(({id, title, avatar, unread_count, last_message}) => {
       
         return new ChatContact({
           imgSrc: avatar ? `https://ya-praktikum.tech/api/v2/resources${avatar}` : noChatAva,
           content: last_message ? last_message.content : '',
-          time: last_message ? last_message.time.toLocaleDateString() : '',
+          time: last_message  ? new Date(last_message.time).toLocaleDateString() : '',
           settings: settingsWithId, 
           events: {
             click: () => setCurrentChatId(id)

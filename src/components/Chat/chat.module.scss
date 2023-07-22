@@ -23,6 +23,7 @@
 
 .usersList {
   overflow-x: auto;
+  display: flex;
 }
 
 .chatUser {
@@ -98,8 +99,21 @@
   width: -moz-fit-content;
   width: fit-content;
   padding: 8px 16px;
+}
+
+.ownMessage {
   margin: 8px;
   border-radius: 20px 20px 20px 0;
+}
+
+.commonMessage {
+  margin: 8px auto;
+  border-radius: 20px;
+}
+
+.guestMessage {
+  margin: 8px 8px 8px auto;
+  border-radius: 20px 20px 0;
 }
 
 .settings {
@@ -141,6 +155,7 @@
    & img {
     height: 56px;
     width: 56px;
+    border-radius: 15%;
    
    }
 
