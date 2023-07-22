@@ -48,11 +48,9 @@ class BaseProfile extends Block<ProfileProps> {
 
     if (user && user.avatar && !Array.isArray(this.children.avatar)) this.children.avatar.setProps({src: `https://ya-praktikum.tech/api/v2/resources${user.avatar}`})
   
-      for (const key in user) {
-        if (key === 'avatar' && user[key]) continue
-        const element: HTMLInputElement | null = document.querySelector(`input[name="${key}"]`)
-        if (element) element.value = user[key as UserKeys] as string
-      }
+    if (Array.isArray(this.children.fields) && user) this.children.fields.forEach(el => {
+      el.setProps({value: user[el.props.fieldName as UserKeys]})
+    }) 
 
     return this.compile(template, {
       passwordUpdate,

@@ -25,7 +25,7 @@ export class Block<P = UnknownObject> {
   private _meta: BlockMeta;
   private settings: Settings;
   protected children: ChildrenType;
-  protected props: P;
+  public props: P;
   private _id: string;
 
   constructor(propsAndChildren: P, tagName = 'div') {

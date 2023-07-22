@@ -9,11 +9,12 @@ interface ProfileFieldProps extends CommonProps {
   required?: boolean;
   pattern?: string;
   type?: string;
+  value?: string
 }
 
 const template = `
   {{ fieldLabel }}
-  <input type="text"  name={{ fieldName }} class="${styles.profileField}" 
+  <input type="text"  name={{ fieldName }} class="${styles.profileField}" value={{ value }}
     {{#if type}} type={{ type }} {{/if}}
     {{#if pattern}} pattern={{ pattern }} {{/if}}
     {{#if required}} required {{/if}}
@@ -25,8 +26,8 @@ export class ProfileField extends Block<ProfileFieldProps> {
   }
 
   render() {
-    const { fieldLabel, fieldName, pattern, type, required } = this.props;
+    const { fieldLabel, fieldName, pattern, type, required, value } = this.props;
 
-    return this.compile(template, { fieldLabel, fieldName, pattern, type, required });
+    return this.compile(template, { fieldLabel, fieldName, pattern, type, required, value });
   }
 }
