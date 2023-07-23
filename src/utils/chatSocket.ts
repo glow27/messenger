@@ -28,13 +28,13 @@ export class ChatSocket {
           
           if (this.chat) {
             this.chat.send(JSON.stringify({
+              content: '0',
+              type: 'get old',
+            }));
+
+            this.chat.send(JSON.stringify({
             content: 'Chat connected!',
             type: 'message',
-          }));
-        
-          this.chat.send(JSON.stringify({
-            content: '0',
-            type: 'get old',
           }));
         }
         });

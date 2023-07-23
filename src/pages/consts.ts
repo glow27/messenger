@@ -14,8 +14,8 @@ export const routes = {
   passwordError: '/profile/update-password/error',
   updatePassword: '/profile/update-password',
   notFound: '/not-found',
-  profile: '/profile',
+  profile: '/settings',
   signin: '/signin',
-  signup: '/signup',
-  chat: '/chat',
+  signup: '/sign-up',
+  chat: '/messenger',
 };

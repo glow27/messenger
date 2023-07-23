@@ -57,7 +57,7 @@ export class Router {
   private history = window.history;
   private routes: RoutePage[] = [];
   private _currentRoute: RoutePage | null = null;
-  private _protectedFallback = '/profile' 
+  private _protectedFallback = '/settings' 
   private _unprotectedFallback = '/signin'
   private _isProtected = false
 

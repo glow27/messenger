@@ -14,7 +14,7 @@ interface ProfileFieldProps extends CommonProps {
 
 const template = `
   {{ fieldLabel }}
-  <input type="text"  name={{ fieldName }} class="${styles.profileField}" value={{ value }}
+  <input type="text"  name={{ fieldName }} class="${styles.profileField}" {{#if value}} value={{ value }} {{/if}}
     {{#if type}} type={{ type }} {{/if}}
     {{#if pattern}} pattern={{ pattern }} {{/if}}
     {{#if required}} required {{/if}}

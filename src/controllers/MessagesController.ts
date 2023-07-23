@@ -56,7 +56,7 @@ class MessagesController {
 
       if (currentChat) currentChat.closeChat()
 
-      if (!chatUsers || chatUsers.length < 2) return
+      if (!chatUsers) return
 
       if (currentChatId && user?.id){
          const newChat = new ChatSocket(currentChatId, user.id)
