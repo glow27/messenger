@@ -163,18 +163,18 @@ export class Block<P = UnknownObject> {
     this.eventBus().emit(Block.EVENTS.FLOW_CDM);
   }
 
-  private _componentDidUpdate(
+  private async _componentDidUpdate(
     oldProps: UnknownObject | State,
     newProps: UnknownObject | State
   ) {
-    const response = this.componentDidUpdate(oldProps, newProps);
+    const response = await this.componentDidUpdate(oldProps, newProps);
     if (response) this.eventBus().emit(Block.EVENTS.FLOW_RENDER);
   }
 
   protected componentDidUpdate(
     oldProps: UnknownObject | State,
     newProps: UnknownObject | State
-  ) {
+  ): Promise<boolean> | boolean {
     if (oldProps === newProps) return true
     return true;
   }

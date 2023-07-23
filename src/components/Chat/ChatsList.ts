@@ -8,7 +8,8 @@ import { ChatContact } from './Contact';
 import { settingsWithId } from '../../pages/consts';
 
 type ChatSettingsProps = {
-  chats: Chat[]
+  chats: Chat[],
+  chatId: number
 } & CommonProps
 
 const template = `
@@ -24,17 +25,29 @@ const setCurrentChatId = async (id: number) => {
    store.set('currentChatId', id)
 } 
 
+const getChats = async () => {
+  await ChatController.getChats()
+}
+
 class BaseList extends Block<ChatSettingsProps> {
   constructor(props: ChatSettingsProps) {
     super(props);
-
-    ChatController.getChats()
   }
 
-  protected componentDidUpdate(_oldProps: UnknownObject, newProps: ChatSettingsProps): boolean {
+  componentDidMount() {
+    getChats()
+  }
 
-     if (!newProps?.chats) return false
-  
+  protected async componentDidUpdate(oldProps: ChatSettingsProps, newProps: ChatSettingsProps) {
+    if (newProps.chats && oldProps.chats && oldProps.chats.length === newProps.chats.length && oldProps.chatId === newProps.chatId){ 
+      
+      return false}
+
+    if (!newProps?.chats) { 
+      
+      return false
+    }
+
       const chats = newProps.chats.map(({id, title, avatar, unread_count, last_message}) => {
       
         return new ChatContact({
@@ -57,13 +70,12 @@ class BaseList extends Block<ChatSettingsProps> {
 
 
   render() {
-
     return this.compile(template, {});
   }
 }
 
 function mapStateToProps(state: State) {
-  return { chats: state.chats };
+  return { chats: state.chats, chatId: state.currentChatId };
 }
 
 export const ChatsList = withStore(mapStateToProps)(BaseList as typeof Block);
