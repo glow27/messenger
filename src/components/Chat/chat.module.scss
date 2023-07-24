@@ -3,8 +3,7 @@
 .chat {
   width: 75%;
   display: flex;
-  flex-direction: column;
-  justify-content: end;
+  flex-flow: column nowrap;
 
   @include chat;
 }
@@ -15,14 +14,71 @@
   @include chat;
 }
 
+.usersContainer {
+  height: 72px;
+  flex-shrink: 0;
+  border-bottom: $container-border;
+  display: flex;
+}
+
+.usersList {
+  overflow-x: auto;
+  display: flex;
+}
+
+.chatUser {
+  padding: 4px;
+  height: 100%;
+  box-sizing: border-box;
+  position: relative;
+  width: 100px;
+  border-right: 1px solid $border-dark;
+  font-size: 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  & img {
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+   }
+
+   & div {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+     
+   }
+}
+
+.addUser {
+  height: 100%;
+  width: 160px;
+  padding: 8px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border-right: $container-border;
+  box-sizing: border-box;
+}
+
+.messages {
+  flex: 1;
+  display: flex;
+  flex-direction: column-reverse;
+  overflow: auto;
+}
+
 .messageForm {
+  flex-shrink: 0;
   height: 160px;
   width: 100%;
   display: flex;
   justify-content: space-between;
   padding: 24px 32px 32px;
   box-sizing: border-box;
-  border-top: 2px solid $border-dark;
+  border-top: $container-border;
 
   & textarea {
     @include border;
@@ -51,31 +107,46 @@
   width: -moz-fit-content;
   width: fit-content;
   padding: 8px 16px;
+}
+
+.ownMessage {
   margin: 8px;
   border-radius: 20px 20px 20px 0;
 }
 
+.commonMessage {
+  margin: 8px auto;
+  border-radius: 20px;
+}
+
+.guestMessage {
+  margin: 8px 8px 8px auto;
+  border-radius: 20px 20px 0;
+}
+
 .settings {
-  @include centeredFlex;
-
-  height: 64px;
-  border-bottom: 2px solid $border-dark;
-
-  & input {
-    @include field;
-    @include border;
-
-    flex-grow: 1;
-    margin: 0 16px;
-  }
+  height: 72px;
+  display: flex;
+  border-bottom: $container-border;
+  align-items: center;
+  justify-content: space-evenly;
 
   & button {
-    margin: 0 16px;
+    height: fit-content;
   }
 
   & img {
     margin-top: 2px;
   }
+}
+
+.addChat {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  height: 100%;
+  width: 80%;
+ 
 }
 
 .chatContact {
@@ -85,11 +156,32 @@
   border-bottom: 1px solid $border-dark;
   box-sizing: border-box;
   height: 80px;
+  position: relative;
+  cursor: pointer;
+
+  &:hover {
+    box-shadow: 0 0 2px 2px $base-color inset;
+  }
 
    & img {
     height: 56px;
     width: 56px;
-    border-radius: 50%;
+    border-radius: 15%;
+   
+   }
+
+   & .count {
+     position: absolute;
+     height: 12px;
+     width: 12px;
+     padding: 2px;
+     border-radius: 50%;
+     background-color: red;
+     color: white;
+     top: 12px;
+     left: 12px;
+     font-size: 12px;
+     text-align: center;
    }
 }
 

@@ -10,7 +10,7 @@ interface FormProps extends CommonProps {
   fields: FormField[];
   formTitle: string;
   button: Button;
-  link: Link;
+  link: typeof Link;
 }
 
 const template = `
@@ -25,7 +25,7 @@ const template = `
 
 export class Form extends Block<FormProps> {
   constructor(props: FormProps) {
-    super('div', props);
+    super(props);
   }
 
   init() {

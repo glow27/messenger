@@ -11,6 +11,10 @@ a {
   text-decoration: none;
   color: $dark-color;
   font-family: acme, sans-serif;
+
+  &:hover {
+    cursor: pointer;
+  }
 }
 
 .centeredContainer {
@@ -25,5 +29,11 @@ a {
 
   & + span {
     display: block !important; 
+  }
+}
+
+.userChat {
+  :hover {
+    cursor: pointer;
   }
 }

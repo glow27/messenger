@@ -8,6 +8,7 @@ import {
   UnknownObject,
   hasSettingsWithId,
 } from '../types/common';
+import { State } from './store';
 
 type ChildrenType = Record<string, Block | Block[]>;
 
@@ -23,11 +24,11 @@ export class Block<P = UnknownObject> {
   private _element: HTMLElement | null = null;
   private _meta: BlockMeta;
   private settings: Settings;
-  private children: ChildrenType;
-  protected props: P;
+  protected children: ChildrenType;
+  public props: P;
   private _id: string;
 
-  constructor(tagName = 'div', propsAndChildren: P) {
+  constructor(propsAndChildren: P, tagName = 'div') {
     const { children, props } = this._getChildren(propsAndChildren);
 
     this.children = children;
@@ -154,7 +155,7 @@ export class Block<P = UnknownObject> {
     });
   }
 
-  protected componentDidMount(/*oldProps?: object*/) {
+  protected componentDidMount(/*oldProps?: object*/):void {
     return undefined;
   }
 
@@ -162,18 +163,18 @@ export class Block<P = UnknownObject> {
     this.eventBus().emit(Block.EVENTS.FLOW_CDM);
   }
 
-  private _componentDidUpdate(
-    oldProps: UnknownObject,
-    newProps: UnknownObject
+  private async _componentDidUpdate(
+    oldProps: UnknownObject | State,
+    newProps: UnknownObject | State
   ) {
-    const response = this.componentDidUpdate(oldProps, newProps);
+    const response = await this.componentDidUpdate(oldProps, newProps);
     if (response) this.eventBus().emit(Block.EVENTS.FLOW_RENDER);
   }
 
   protected componentDidUpdate(
-    oldProps: UnknownObject,
-    newProps: UnknownObject
-  ) {
+    oldProps: UnknownObject | State,
+    newProps: UnknownObject | State
+  ): Promise<boolean> | boolean {
     if (oldProps === newProps) return true
     return true;
   }
@@ -255,15 +256,12 @@ export class Block<P = UnknownObject> {
 
   private _makePropsProxy(props: P, current: this): P {
     const proxyProps = new Proxy(props as UnknownObject, {
-      get(target: UnknownObject, prop) {
-        if (typeof prop === 'string' && prop.indexOf('_') === 0) {
-          throw new Error('No access');
-        }
-
-        if (typeof prop === 'string') {
+      get(target: UnknownObject, prop: string) {
+       
+        
           const value = target[prop];
           return typeof value === 'function' ? value.bind(target) : value;
-        }
+        
       },
       deleteProperty() {
         throw new Error('No access');

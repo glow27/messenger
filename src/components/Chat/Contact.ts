@@ -1,24 +1,27 @@
 import { Block } from '../../utils/block';
-
 import styles from './chat.module.scss'
+import { CommonProps } from '../../types/common';
 
-export interface ChatContactProps {
-  lastMessage: string;
+export type ChatContactProps = {
+  unread_count?: number;
   imgSrc: string;
-  name: string;
-  date: string
-}
+  title: string;
+  time: string;
+  content: string;
+} & CommonProps
 
 const template = `
+  {{#if unread_count}}<div class="${styles.count}">{{ unread_count }}</div>{{/if}}
   <img src="{{ imgSrc }}"  alt="contactAva" />
   <div class="${styles.lastMessage}">
-    <b>{{ name }}</b><span class="${styles.date}">{{ date }}</span>
-    <div class="${styles.text}">{{ lastMessage }}</div>
+    <b>{{ title }}</b>
+    <span class="${styles.date}">{{ time }}</span>
+    <div class="${styles.text}">{{ content }}</div>
   </div>`;
 
 export class ChatContact extends Block<ChatContactProps> {
   constructor(props: ChatContactProps) {
-    super('div', props);
+    super(props);
   }
 
   init() {
@@ -27,13 +30,19 @@ export class ChatContact extends Block<ChatContactProps> {
   }
 
   render() {
-    const { imgSrc, name, lastMessage, date } = this.props;
+
+    const {unread_count,
+      imgSrc,
+      title,
+      time,
+      content} = this.props
 
     return this.compile(template, { 
-      lastMessage,
+      unread_count,
       imgSrc,
-      name,
-      date
-    });
+      title,
+      time,
+      content
+     })
   }
 }

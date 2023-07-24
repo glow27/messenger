@@ -1,8 +1,9 @@
 import { FormField, FormFieldProps } from '../../components/AuthForm/FormField';
+import AuthController from '../../controllers/AuthController';
 import { Button } from '../../components/Button/Button';
 import { Link } from '../../components/Link/Link';
-import { Form } from '../../components/AuthForm/Form';
 import {
+  routes,
   settingsIdAndInputSelector,
   settingsIdandFormSelector,
   settingsWithId,
@@ -15,7 +16,7 @@ import {
   phonePattern,
 } from '../../utils/regexPatterns';
 import {
-  submitFormValues,
+  getFormValues,
   validateField,
   validatePasswordMatch,
 } from '../../utils/helpers';
@@ -96,16 +97,21 @@ const button = new Button({
 
 const link = new Link({
   linkText: 'Back to sign in',
-  href: 'signin',
+  href: routes.signin,
 });
 
-export const signupForm = new Form({
+export const signupProps = {
   fields: singupFormFields.map((el) => new FormField(el)),
   events: {
-    submit: submitFormValues,
+    submit: async (e: Event) => {
+      e.preventDefault()
+      const data = getFormValues(e)
+      
+      AuthController.signup({data});
+    },
   },
   settings: settingsIdandFormSelector,
   formTitle: 'SIGN UP',
   button,
   link,
-});
+}

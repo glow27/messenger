@@ -1,21 +1,30 @@
-import settingsIcon from '../../../static/set.png';
 import { CommonProps } from '../../types/common';
-import { ChatMessage } from './ChatMessage';
+import { ChatsList } from './ChatsList';
+import { MessagesList } from './Messages';
 import { Block } from '../../utils/block';
-import { ChatContact } from './Contact';
-
 import styles from './chat.module.scss';
+import { SettingsBtn } from './SettingsBtn';
+import { Button } from '../Button/Button';
 
 interface ChatProps extends CommonProps {
-  messages: ChatMessage[]
-  contacts: ChatContact[]
+  settingsBtn: SettingsBtn;
+  addBtn: Button;
+  chatsList?: typeof ChatsList
+  messagesList: typeof MessagesList
 }
 
 const template = `
   <div class="${styles.chat}">
-    {{#each messages}}
-      {{{ this }}}
-    {{/each}}
+    <div class="${styles.usersContainer}">
+      <div class="${styles.addUser}">
+        <input name="userId" placeholder="user id" type="number"></input>
+        {{{ addUserBtn }}}
+      </div>
+      {{{ usersList }}}
+    </div>
+
+    {{{ messagesList }}}
+
     <form class="${styles.messageForm}">
       <textarea name="message" required ></textarea>
       <button>send</button>
@@ -23,27 +32,29 @@ const template = `
   </div>
   <div class="${styles.contacts}">
     <div class="${styles.settings}">
-      <a href="profile"><button><img src=${settingsIcon} /></button></a>
-      <input type="text" name="search" placeholder="search" />
+    <div class="${styles.addChat}">
+      <input name="title" placeholder="chat title"></input>
+      {{{ addChatBtn }}}
     </div>
-    {{#each contacts}}
-      {{{ this }}}
-    {{/each}}
+    {{{ settingsBtn }}}
+    </div>
+    
+    {{{ chatsList }}}
   </div>`;
 
 export class Chat extends Block<ChatProps> {
   constructor(props: ChatProps) {
-    super('div', props);
+    super(props);
   }
 
-  init() {
+  async init() {
     const currentElement = this.getContent();
     currentElement?.classList.add('centeredContainer');
   }
 
   render() {
-    const {messages, contacts} = this.props
+    const { settingsBtn, addBtn, chatsList, messagesList } = this.props;
 
-    return this.compile(template, { messages, contacts });
+    return this.compile(template, { settingsBtn, addBtn, chatsList, messagesList });
   }
 }
