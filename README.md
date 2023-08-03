@@ -15,13 +15,19 @@ https://symphonious-sundae-5d7d6c.netlify.app/
 
 /signin
 
-/signup
+/sign-up
 
-/chat
+/messenger
+*(chat page)*
 
-/profile
+/settings
+*(profile page)*
 
 *going to any other page will leed you to an error page, for example: /asfdasdfasdw*
 
 *ui prototypes in ui folder*
+
+### technologies and libs 
+
+ts, handlebars, vite, sass, mocha, eslint
 
