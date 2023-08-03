@@ -6,11 +6,11 @@ describe('HTTPTransport test', () => {
   let xhr: SinonFakeXMLHttpRequestStatic;
   let instance: HTTPTransport;
   const requests: SinonFakeXMLHttpRequest[] = [];
+
   beforeEach(() => {
     xhr = sinon.useFakeXMLHttpRequest();
 
-    //@ts-expect-error
-    global.XMLHttpRequest = xhr;
+    global.XMLHttpRequest = xhr as unknown as typeof XMLHttpRequest;
 
     xhr.onCreate = (req) => {
       requests.push(req);
@@ -29,6 +29,6 @@ describe('HTTPTransport test', () => {
 
     const [request] = requests;
 
-    expect(request.method).to.equal('GEY');
+    expect(request.method).to.equal('GET');
   });
 });

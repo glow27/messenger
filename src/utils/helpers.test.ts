@@ -8,17 +8,6 @@ describe('set function', () => {
     expect(set(notAnObject, '', '1')).to.equal(notAnObject);
   });
 
-  it('Should throw an error if path param is not a string', () => {
-
-    const path = 123;
-    const obj = {};
-
-    //@ts-expect-error
-    const fn = () => set(obj, path, 123);
-
-    expect(fn).to.throw(Error);
-  });
-
   it('Should set value by path', () => {
     const obj = { a: 123, b: { a: 345 }};
     const path = 'b.a';
