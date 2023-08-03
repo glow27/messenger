@@ -1,14 +1,14 @@
 import Handlebars from 'handlebars';
 import { nanoid } from 'nanoid';
-import { EventBus } from './eventBus';
+import { EventBus } from './eventBus.ts';
 import {
   BlockMeta,
   CommonProps,
   Settings,
   UnknownObject,
   hasSettingsWithId,
-} from '../types/common';
-import { State } from './store';
+} from '../types/common.ts';
+import { State } from './store.ts';
 
 type ChildrenType = Record<string, Block | Block[]>;
 
