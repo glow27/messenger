@@ -29,6 +29,6 @@ describe('HTTPTransport test', () => {
 
     const [request] = requests;
 
-    expect(request.method).to.equal('GET');
+    expect(request.method).to.equal('GEY');
   });
 });

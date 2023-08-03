@@ -29,5 +29,5 @@ https://symphonious-sundae-5d7d6c.netlify.app/
 
 ### technologies and libs 
 
-ts, handlebars, vite, sass, mocha, eslint
+ts, handlebars, vite, sass, mocha, eslint, husky
 
