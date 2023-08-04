@@ -6,6 +6,7 @@ const { window } = new JSDOM('<body></body>', {
 
 global.window = window;
 global.document = window.document;
+global.FormData = window.FormData;
 global.DocumentFragment = window.DocumentFragment;
 
 // require.extensions['.scss'] = function () {

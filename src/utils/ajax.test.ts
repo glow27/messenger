@@ -31,4 +31,40 @@ describe('HTTPTransport test', () => {
 
     expect(request.method).to.equal('GET');
   });
+
+  it('Method post() should be called with POST method', () => {
+    instance.post('/');
+
+    const [request] = requests;
+
+    expect(request.method).to.equal('POST');
+  });
+
+  it('Method put() should be called with PUT method', () => {
+    instance.put('/');
+
+    const [request] = requests;
+
+    expect(request.method).to.equal('PUT');
+  });
+
+  it('Method post() should be called with right data', () => {
+    const data = { name: 'xxx' }
+    
+    instance.post('/', { data });
+
+    const [request] = requests;
+
+    expect(request.requestBody).to.equal(JSON.stringify(data));
+  });
+
+  it('Method get should be called with url params', () => {
+    
+    instance.get('/', { data: { a: 1, b: 2 } });
+
+    const [request] = requests;
+
+    expect(request.url).to.include('?a=1&b=2');
+  });
+  
 });

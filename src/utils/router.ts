@@ -1,6 +1,6 @@
 import { UnknownObject } from '../types/common';
-import { Block } from './block';
-import { render } from './renderDom';
+import { Block } from './block.ts';
+import { render } from './renderDom.ts';
 
 type Protection = 'protected' | 'not portected' | 'common'
 
@@ -93,7 +93,7 @@ export class Router {
       this._onRoute(window.location.pathname);
   }
 
-  _onRoute(pathname: string) {
+  private _onRoute(pathname: string) {
       const route = this.getRoute(pathname);
 
       if (!route) {
@@ -133,7 +133,7 @@ export class Router {
     return this
   }
 
-  getRoute(pathname: string) {
+  private getRoute(pathname: string) {
       
       let route = this.routes.find(route => route.match(pathname));
 

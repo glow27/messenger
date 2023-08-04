@@ -1,4 +1,4 @@
-import { Block } from './block';
+import { Block } from './block.ts';
 
 export function render(query: string, block: unknown) {
   const root = document.querySelector(query);

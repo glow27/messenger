@@ -1,7 +1,7 @@
 import { expect } from 'chai';
 import { set } from './helpers.ts';
 
-describe('set function', () => {
+describe('set function test', () => {
   it('Should return object argument if passed object is not an real object', () => {
     const notAnObject = null;
 
