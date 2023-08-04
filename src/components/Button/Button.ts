@@ -1,4 +1,4 @@
-import { CommonProps } from '../../types/common';
+import { CommonProps } from '../../types/common.ts';
 import { Block } from '../../utils/block.ts';
 
 interface ButtonProps extends CommonProps {

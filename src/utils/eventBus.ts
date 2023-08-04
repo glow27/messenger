@@ -1,5 +1,5 @@
-import { EventBusListeners, EventCallback, UnknownObject } from '../types/common';
-import { State } from './store';
+import { EventBusListeners, EventCallback, UnknownObject } from '../types/common.ts';
+import { State } from './store.ts';
 
 export class EventBus {
   listeners: EventBusListeners;

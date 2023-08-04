@@ -1,4 +1,4 @@
-import { UnknownObject } from '../types/common';
+import { UnknownObject } from '../types/common.ts';
 import { Block } from './block.ts';
 import { render } from './renderDom.ts';
 
