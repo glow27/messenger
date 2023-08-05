@@ -1,4 +1,4 @@
-import { State } from '../utils/store';
+import { State } from '../utils/store.ts';
 
 export type EventCallback = (...args: (UnknownObject | State)[]) => void;
 

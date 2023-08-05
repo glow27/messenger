@@ -1,4 +1,4 @@
-import { UnknownObject } from '../types/common';
+import { UnknownObject } from '../types/common.ts';
 
 const errorMessages = {
   email: 'enter valid email address',

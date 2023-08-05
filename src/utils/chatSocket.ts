@@ -5,7 +5,7 @@ export class ChatSocket {
   private _chatId
   private _userId
   private chat?: WebSocket
-  private _pingInterval: number | null = null
+  private _pingInterval: NodeJS.Timer | null = null
   
 
   constructor(chatId: number, userId: number) {

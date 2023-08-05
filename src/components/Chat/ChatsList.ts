@@ -1,4 +1,4 @@
-import { CommonProps, UnknownObject } from '../../types/common';
+import { CommonProps } from '../../types/common';
 import { Block } from '../../utils/block';
 import store, { State, withStore } from '../../utils/store';
 import { Chat } from '../../api/ChatApi';
